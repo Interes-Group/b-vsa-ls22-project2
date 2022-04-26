@@ -168,7 +168,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "name": "string",
     "address": "string",
     "prices": number
@@ -182,9 +182,9 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "identifier": "string",
-    "carPark": int64,
+    "carPark" ?: int64,
     "spots" ?: [
         $ref: "Parkovacie miesto"
     ]
@@ -195,12 +195,12 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "identifier": "string",
     "carParkFloor": "string",
-    "carPark": int64,
+    "carPark" ?: int64,
     "type": $ref: "Typ auta",
-    "free": boolean,
+    "free" ?: boolean,
     "reservations" ?: [
         $ref: "Rezervácia"
     ]
@@ -211,7 +211,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "brand": "string",
     "model": "string",
     "vrp": "string",
@@ -228,7 +228,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "firstName": "string",
     "lastName": "string",
     "email": "string",
@@ -245,10 +245,10 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "start": Date(yyyy-MM-dd),
-    "end": Date(yyyy-MM-dd),
-    "prices": number,
+    "end" ?: Date(yyyy-MM-dd),
+    "prices" ?: number,
     "car": $ref: "Auto",
     "spot": $ref: "Parkovacie miesto",
     "coupon" ?: $ref: "Zľavový kupón"
@@ -259,7 +259,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "name": "string",
     "discount": number
 }
@@ -269,7 +269,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "name": "string"
 }
 ```
@@ -278,7 +278,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 
 ```
 {
-    "id": int64,
+    "id" ?: int64,
     "name": "string",
     "date": Date(yyyy-MM-dd)
 }
