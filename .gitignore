@@ -117,3 +117,6 @@ fabric.properties
 *.iml
 out
 gen
+
+nbactions.xml
+nb-configuration.xml
