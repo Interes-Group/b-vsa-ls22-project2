@@ -32,7 +32,7 @@ public class UserDownFromCarDTO {
         this.email = u.getEmail();
         this.cars = new ArrayList<>();
         if (u.getCars() != null) {
-            u.getCars().stream().map(c -> {
+            this.cars = u.getCars().stream().map(c -> {
                 return new IdDTO(c.getId());
             }).collect(Collectors.toList());
         }

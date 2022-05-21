@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import sk.stuba.fei.uim.vsa.pr2.resources.CarParkFloorResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.CarParkResource;
+import sk.stuba.fei.uim.vsa.pr2.resources.CarResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource2;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource3;
@@ -31,6 +32,7 @@ public class Project2Application extends Application {
         resourceClasses.add(ParkingSpotResource3.class);
         resourceClasses.add(CarParkResource.class);
         resourceClasses.add(CarParkFloorResource.class);
+        resourceClasses.add(CarResource.class);
         
     }
 

@@ -1196,4 +1196,30 @@ public class CarParkService extends AbstractCarParkService {
     public void evictCache(Class c) {
         emf.getCache().evict(c);
     }
+    
+    public Boolean parkingSpotExists(Long carParkId, String parkingSpotIdentifier)
+    {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<ParkingSpot> q = em.createQuery("SELECT p FROM ParkingSpot p WHERE p.carParkFloor.embeddedId.carParkId = :carParkId AND p.spotIdentifier = :spotIdentifier", ParkingSpot.class);
+        q.setParameter("carParkId", carParkId);
+        q.setParameter("spotIdentifier", parkingSpotIdentifier);
+        List<ParkingSpot> res = q.getResultList();
+        em.close();
+        if (res == null) {
+            return false;
+        }
+        if (res.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+    
+    public List<Car> getAllCars()
+    {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Car> q = em.createQuery("SELECT c FROM Car c", Car.class);
+        List<Car>  cars = q.getResultList();
+        em.close();
+        return cars;
+    }
 }

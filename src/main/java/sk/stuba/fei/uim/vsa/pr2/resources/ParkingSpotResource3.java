@@ -57,6 +57,12 @@ public class ParkingSpotResource3 {
     @PUT
     public Response update(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long stopId, String body) throws JsonProcessingException
     {
+        Object parkingSpotExists = this.carParkService.getParkingSpot(stopId);
+        if (parkingSpotExists == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        
+        
         try {
             ParkingSpotDTO request = this.jsonMapper.readValue(body, ParkingSpotDTO.class);
             if (request == null) {
@@ -65,12 +71,23 @@ public class ParkingSpotResource3 {
             if (request.identifier == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
+            
+            
+            
             Object parkingSpotObject = this.carParkService.getParkingSpot(stopId);
             if (parkingSpotObject == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             
+            
+            
             ParkingSpot parkingSpot = (ParkingSpot) parkingSpotObject;
+            
+            if (! request.identifier.equals(parkingSpot.getSpotIdentifier())) {
+                if (this.carParkService.parkingSpotExists(parkingSpot.getCarParkFloor().getCarPark().getId(), request.identifier)) {
+                    return Response.status(Response.Status.BAD_REQUEST).build();
+                }
+            }
             parkingSpot.setSpotIdentifier(request.identifier);
             this.carParkService.updateParkingSpot(parkingSpot);
             this.carParkService.evictCache();

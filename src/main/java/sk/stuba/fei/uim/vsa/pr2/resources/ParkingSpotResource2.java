@@ -20,6 +20,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.stream.Collectors;
 import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 import sk.stuba.fei.uim.vsa.pr1.domain.CarParkFloor;
+import sk.stuba.fei.uim.vsa.pr1.domain.CarType;
 import sk.stuba.fei.uim.vsa.pr1.domain.ParkingSpot;
 import sk.stuba.fei.uim.vsa.pr2.dto.ParkingSpotDTO;
 
@@ -68,6 +69,12 @@ public class ParkingSpotResource2 {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long id, @PathParam("identifier") String identifier, String body) throws JsonProcessingException
     {
+        
+        Object existsParkingFloorObject = this.carParkService.getCarParkFloor(id, identifier);
+        if (existsParkingFloorObject == null) {
+             return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        
         try {
             ParkingSpotDTO request = this.jsonMapper.readValue(body, ParkingSpotDTO.class);
             if (request == null) {
@@ -76,12 +83,45 @@ public class ParkingSpotResource2 {
             if (request.identifier == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
+            
+            if (this.carParkService.parkingSpotExists(id, request.identifier)) {
+                 return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            
+            if (request.type != null) {
+                if (request.type.id != null) {
+                    Object carTypeExists = this.carParkService.getCarType(request.type.id);
+                    if (carTypeExists == null) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                } else { 
+                    if (request.type.name == null) {
+                     return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                    Object carTypeExists = this.carParkService.getCarType(request.type.name);
+                    if (carTypeExists != null) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                }
+            }
+            
             Object createdSpotObject;
             if (request.type == null) {
                 createdSpotObject = this.carParkService.createParkingSpot(id, identifier, request.identifier);
                 
             } else {
-                createdSpotObject = this.carParkService.createParkingSpot(id, identifier, request.identifier, request.type.id);
+                if (request.type.id != null) {
+                    createdSpotObject = this.carParkService.createParkingSpot(id, identifier, request.identifier, request.type.id);
+                } else {
+                    Object carTypeExistsObject = this.carParkService.getCarType(request.type.name);
+                    if (carTypeExistsObject == null) {
+                        carTypeExistsObject = this.carParkService.createCarType(request.type.name);
+                    }
+                    
+                    CarType carTypeExists = (CarType) carTypeExistsObject;
+                    createdSpotObject = this.carParkService.createParkingSpot(id, identifier, request.identifier, carTypeExists.getId());
+                }
+               
             }
             if (createdSpotObject == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
@@ -90,7 +130,7 @@ public class ParkingSpotResource2 {
             this.carParkService.evictCache();
             createdSpotObject = this.carParkService.getParkingSpot(createdParkingSpot.getId());
             createdParkingSpot = (ParkingSpot) createdSpotObject;
-            this.carParkService.evictCache();
+            //this.carParkService.evictCache();
             return Response.ok(this.jsonMapper.writeValueAsString(new ParkingSpotDTO(createdParkingSpot))).build();
             
             
