@@ -16,14 +16,14 @@ import sk.stuba.fei.uim.vsa.pr1.domain.CarPark;
  *
  * @author sheax
  */
-public class CarParkForFloorWithoutIdForParkingSpotWithoutTypeDTO {
+public class CarParkDTO {
     public Long id;
     public String name;
     public String address;
     public Integer prices;
-    public List<CarParkFloorWithoutIdForParkingSpotWithoutTypeTopLevelDTO> floors;
+    public List<CarParkFloorDTO> floors;
     
-    public CarParkForFloorWithoutIdForParkingSpotWithoutTypeDTO(CarPark carPark)
+    public CarParkDTO(CarPark carPark)
     {
         this.id = carPark.getId();
         this.name = carPark.getName();
@@ -34,7 +34,7 @@ public class CarParkForFloorWithoutIdForParkingSpotWithoutTypeDTO {
         
         if (carPark.getCarParkFloorList() != null) {
              this.floors = carPark.getCarParkFloorList().stream().map(f -> {
-                return new CarParkFloorWithoutIdForParkingSpotWithoutTypeTopLevelDTO(f);
+                return new CarParkFloorDTO(f);
             }).collect(Collectors.toList());
         }
     }

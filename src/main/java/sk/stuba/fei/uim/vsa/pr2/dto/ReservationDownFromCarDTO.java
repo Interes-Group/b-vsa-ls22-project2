@@ -13,15 +13,17 @@ import sk.stuba.fei.uim.vsa.pr1.domain.Reservation;
  *
  * @author sheax
  */
-public class ReservationWithoutTypeDownFromCarDTO {
+public class ReservationDownFromCarDTO {
     public Long id;
     public String start;
     public String end;
-    public ParkingSpotWithoutTypeDownFromReservationDTO spot;
+    public ParkingSpotDownFromReservationDTO spot;
     public Long prices;
     public IdDTO car;
     
-    public ReservationWithoutTypeDownFromCarDTO(Reservation reservation)
+    public CouponDTO coupon;
+    
+    public ReservationDownFromCarDTO(Reservation reservation)
     {
         this.id = reservation.getId();
         if (reservation.getStartsAt() != null) {
@@ -36,11 +38,15 @@ public class ReservationWithoutTypeDownFromCarDTO {
         }
         
         if (reservation.getParkingSpot() != null) {
-            this.spot = new ParkingSpotWithoutTypeDownFromReservationDTO(reservation.getParkingSpot());  
+            this.spot = new ParkingSpotDownFromReservationDTO(reservation.getParkingSpot());  
         }
         
         if (reservation.getCar() != null) {
             this.car = new IdDTO(reservation.getCar().getId());
+        }
+        
+        if (reservation.getCoupon() != null) {
+            this.coupon = new CouponDTO(reservation.getCoupon());
         }
     }
 }

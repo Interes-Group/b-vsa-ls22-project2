@@ -14,17 +14,18 @@ import sk.stuba.fei.uim.vsa.pr1.domain.Car;
  *
  * @author sheax
  */
-public class CarWithoutTypeDownFromReservationDTO {
+public class CarDownFromReservationDTO {
     public Long id;
     public String brand;
     public String model;
     public String vrp;
     public String colour;
+    public CarTypeDTO type;
     
     List<IdDTO> reservations;
     public UserDownFromCarDTO owner;
     
-    public CarWithoutTypeDownFromReservationDTO(Car car)
+    public CarDownFromReservationDTO(Car car)
     {
         this.id = car.getId();
         this.brand = car.getBrand();
@@ -42,6 +43,10 @@ public class CarWithoutTypeDownFromReservationDTO {
         
         if (car.getUser() != null) {
             this.owner = new UserDownFromCarDTO(car.getUser());
+        }
+        
+        if (car.getType() != null) {
+            this.type = new CarTypeDTO(car.getType());
         }
     }
 }

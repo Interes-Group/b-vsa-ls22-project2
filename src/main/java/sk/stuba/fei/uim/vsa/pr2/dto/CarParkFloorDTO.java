@@ -15,12 +15,13 @@ import sk.stuba.fei.uim.vsa.pr1.domain.ParkingSpot;
  *
  * @author sheax
  */
-public class CarParkFloorWithoutIdForParkingSpotWithoutTypeTopLevelDTO {
+public class CarParkFloorDTO {
     public String identifier;
     public Long carPark;
-    public List<ParkingSpotWithoutTypeTopLevelDTO> spots;
+    public List<ParkingSpotDTO> spots;
+    public Long id;
     
-    public CarParkFloorWithoutIdForParkingSpotWithoutTypeTopLevelDTO(CarParkFloor floor)
+    public CarParkFloorDTO(CarParkFloor floor)
     {
         this.identifier = floor.getEmbeddedId().getIdentifier();
         this.carPark = floor.getCarPark().getId();
@@ -30,7 +31,7 @@ public class CarParkFloorWithoutIdForParkingSpotWithoutTypeTopLevelDTO {
             for (ParkingSpot spot: floor.getParkingSpots()) {
                 
                 
-                this.spots.add(new ParkingSpotWithoutTypeTopLevelDTO(spot));
+                this.spots.add(new ParkingSpotDTO(spot));
             }
         }
         

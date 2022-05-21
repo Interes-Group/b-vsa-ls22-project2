@@ -18,6 +18,9 @@ public class Reservation implements Serializable {
 
 
     private LocalDateTime endsAt;
+        
+    @OneToOne(mappedBy = "reservation")
+    private Coupon coupon;
 
     public Long getId() {
         return id;
@@ -140,4 +143,14 @@ public class Reservation implements Serializable {
         endReservation();
         this.price = this.price * (1 - (discount.doubleValue() / 100.0));
     }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+    
+    
 }

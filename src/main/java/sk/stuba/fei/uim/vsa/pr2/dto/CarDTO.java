@@ -7,46 +7,44 @@ package sk.stuba.fei.uim.vsa.pr2.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import sk.stuba.fei.uim.vsa.pr1.domain.Car;
-import sk.stuba.fei.uim.vsa.pr1.domain.ParkingSpot;
-import sk.stuba.fei.uim.vsa.pr1.domain.Reservation;
+import sk.stuba.fei.uim.vsa.pr1.domain.*;
 
 /**
  *
  * @author sheax
  */
-public class CarWithoutTypeDownFromUserDTO {
+public class CarDTO {
     public Long id;
     public String brand;
     public String model;
     public String vrp;
     public String colour;
+    public List<ReservationDownFromCarDTO> reservations;
+    public UserDownFromCarDTO owner;
+    public CarTypeDTO type;
     
-    List<ReservationWithoutTypeDownFromCarDTO> reservations;
-    public IdDTO owner;
-    
-    public CarWithoutTypeDownFromUserDTO(Car c)
+    public CarDTO(Car c)
     {
         this.id = c.getId();
         this.brand = c.getBrand();
         this.model = c.getModel();
         this.vrp = c.getVrp();
         this.colour = c.getColour();
-        
-        if (c.getUser() != null) {
-            this.owner = new IdDTO(c.getUser().getId());
-        }
-        
         this.reservations = new ArrayList<>();
         
         if (c.getReservations() != null) {
             for (Reservation r: c.getReservations()) {
-                
-                
-                
-                this.reservations.add(new ReservationWithoutTypeDownFromCarDTO(r));
+                this.reservations.add(new ReservationDownFromCarDTO(r));
                 
             }
+        }
+        
+        if (c.getUser() != null) {
+            this.owner = new UserDownFromCarDTO(c.getUser());
+        }
+        
+        if (c.getType() != null) {
+            this.type = new CarTypeDTO(c.getType());
         }
     }
 }

@@ -19,6 +19,7 @@ public class ReservationDownFromParkingSpotDTO {
     public IdDTO spot;
     public Long prices;
     public Object car;
+    public CouponDTO coupon;
     
     public ReservationDownFromParkingSpotDTO(Reservation reservation)
     {
@@ -39,7 +40,11 @@ public class ReservationDownFromParkingSpotDTO {
         } 
         
         if (reservation.getCar() != null) {
-            this.car = new CarWithoutTypeDownFromReservationDTO(reservation.getCar());
+            this.car = new CarDownFromReservationDTO(reservation.getCar());
+        }
+        
+        if (reservation.getCoupon() != null) {
+            this.coupon = new CouponDTO(reservation.getCoupon());
         }
     }
 }

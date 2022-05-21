@@ -16,7 +16,8 @@ public class ParkingSpot implements Serializable {
 
     @ManyToOne
     private CarParkFloor carParkFloor;
-
+    
+    @Column(name = "SPOT_IDENTIFIER")
     private String identifier;
 
     @ManyToOne

@@ -8,39 +8,38 @@ package sk.stuba.fei.uim.vsa.pr2.dto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 import sk.stuba.fei.uim.vsa.pr1.domain.ParkingSpot;
 import sk.stuba.fei.uim.vsa.pr1.domain.Reservation;
+import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 
 /**
  *
  * @author sheax
  */
-public class ParkingSpotWithoutTypeTopLevelDTO {
+public class ParkingSpotDownFromReservationDTO {
     public Long id;
-    public String identifier;
     public String carParkFloor;
     public Long carPark;
     public Boolean free;
-    public List<ReservationDownFromParkingSpotDTO> reservations;
     
-    public ParkingSpotWithoutTypeTopLevelDTO(ParkingSpot parkingSpot)
+    public List<IdDTO> reservations;
+    
+    public ParkingSpotDownFromReservationDTO(ParkingSpot parkingSpot)
     {
         this.id = parkingSpot.getId();
-        this.identifier = parkingSpot.getIdentifier();
-        this.carParkFloor = parkingSpot.getCarParkFloor().getEmbeddedId().getIdentifier();
-        this.carPark = parkingSpot.getCarParkFloor().getCarPark().getId();
+        
         CarParkService service = new CarParkService();
         this.free =  service.isParkingSpotAvailable(parkingSpot);
         
+        this.carParkFloor = parkingSpot.getCarParkFloor().getEmbeddedId().getIdentifier();
+        this.carPark = parkingSpot.getCarParkFloor().getCarPark().getId();
         this.reservations = new ArrayList<>();
+        
         if (parkingSpot.getReservations() != null) {
             parkingSpot.getReservations().stream().map(o -> {
                 Reservation r = (Reservation) o;
-                return new ReservationDownFromParkingSpotDTO(r);
+                return new IdDTO(r.getId());
             }).collect(Collectors.toList());
         }
     }
 }
-
-

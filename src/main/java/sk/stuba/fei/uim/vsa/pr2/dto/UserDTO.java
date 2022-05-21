@@ -14,7 +14,7 @@ import sk.stuba.fei.uim.vsa.pr1.domain.User;
  *
  * @author sheax
  */
-public class UserTopLevelDTO {
+public class UserDTO {
     
     public Long id;
     public String firstName;
@@ -22,9 +22,11 @@ public class UserTopLevelDTO {
     
     public String email;
     
-    public List<CarWithoutTypeDownFromUserDTO> cars;
+    public List<CarDownFromUserDTO> cars;
     
-    public UserTopLevelDTO(User u)
+    public List<CouponDTO> coupons;
+    
+    public UserDTO(User u)
     {
         this.id = u.getId();
         this.firstName = u.getFirstName();
@@ -34,8 +36,21 @@ public class UserTopLevelDTO {
         if (u.getCars() != null) {
             this.cars = u.getCars().stream().map(c -> {
             
-                return new CarWithoutTypeDownFromUserDTO(c);
+                return new CarDownFromUserDTO(c);
             }).collect(Collectors.toList());
+        }
+        
+        this.coupons = new ArrayList<>();
+        if (u.getCoupons() != null) {
+            this.coupons = u.getCoupons().stream()
+                .filter(c -> ! c.getUsed())
+                .map(
+                    c -> {
+                        return new CouponDTO(c.getCoupon());
+                    }
+                )
+                .collect(Collectors.toList());
+                    
         }
     }
 }

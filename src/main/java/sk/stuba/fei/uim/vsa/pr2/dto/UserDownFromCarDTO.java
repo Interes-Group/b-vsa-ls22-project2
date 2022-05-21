@@ -22,6 +22,8 @@ public class UserDownFromCarDTO {
     public String email;
     public List<IdDTO> cars;
     
+    public List<CouponDTO> coupons;
+    
     public UserDownFromCarDTO(User u)
     {
         this.id = u.getId();
@@ -33,6 +35,19 @@ public class UserDownFromCarDTO {
             u.getCars().stream().map(c -> {
                 return new IdDTO(c.getId());
             }).collect(Collectors.toList());
+        }
+        
+        this.coupons = new ArrayList<>();
+        if (u.getCoupons() != null) {
+            this.coupons = u.getCoupons().stream()
+                .filter(c -> ! c.getUsed())
+                .map(
+                    c -> {
+                        return new CouponDTO(c.getCoupon());
+                    }
+                )
+                .collect(Collectors.toList());
+                    
         }
     }
 }

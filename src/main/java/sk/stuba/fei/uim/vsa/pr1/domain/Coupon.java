@@ -15,7 +15,10 @@ public class Coupon implements Serializable {
     private String name;
 
     private Integer discount;
-
+    
+    @OneToOne
+    private Reservation reservation;
+    
     public Coupon() {
     }
 
@@ -46,5 +49,14 @@ public class Coupon implements Serializable {
 
     public void setDiscount(Integer discount) {
         this.discount = discount;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        reservation.setCoupon(this);
+        this.reservation = reservation;
     }
 }

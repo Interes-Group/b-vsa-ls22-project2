@@ -11,7 +11,7 @@ public abstract class AbstractCarParkService {
     protected EntityManagerFactory emf;
 
     protected AbstractCarParkService() {
-        this.emf = Persistence.createEntityManagerFactory("vsa-project");
+        this.emf = Persistence.createEntityManagerFactory("default");
     }
 
     protected void close() {
