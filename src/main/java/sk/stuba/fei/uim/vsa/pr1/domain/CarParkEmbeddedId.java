@@ -8,6 +8,7 @@ package sk.stuba.fei.uim.vsa.pr1.domain;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author sheax
@@ -57,6 +58,35 @@ public class CarParkEmbeddedId implements Serializable {
      */
     public void setCarParkId(Long carParkId) {
         this.carParkId = carParkId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.carParkId);
+        hash = 67 * hash + Objects.hashCode(this.identifier);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CarParkEmbeddedId other = (CarParkEmbeddedId) obj;
+        if (!Objects.equals(this.identifier, other.identifier)) {
+            return false;
+        }
+        if (!Objects.equals(this.carParkId, other.carParkId)) {
+            return false;
+        }
+        return true;
     }
 
 }

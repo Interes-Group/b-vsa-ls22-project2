@@ -2,6 +2,8 @@ package sk.stuba.fei.uim.vsa.pr1.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "PARKING_SPOT")
@@ -15,16 +17,19 @@ public class ParkingSpot implements Serializable {
     @ManyToOne
     private CarParkFloor carParkFloor;
 
-    private String spotIdentifier;
+    private String identifier;
 
     @ManyToOne
     private CarType type;
+    
+    @OneToMany(mappedBy = "parkingSpot")
+    private List<Reservation> reservations;
 
     public ParkingSpot() {
     }
 
     public ParkingSpot(String spotIdentifier) {
-        this.spotIdentifier = spotIdentifier;
+        this.identifier = spotIdentifier;
     }
 
     /**
@@ -33,7 +38,7 @@ public class ParkingSpot implements Serializable {
      * @return the value of identifier
      */
     public String getIdentifier() {
-        return spotIdentifier;
+        return identifier;
     }
 
     /**
@@ -42,7 +47,7 @@ public class ParkingSpot implements Serializable {
      * @param identifier new value of identifier
      */
     public void setIdentifier(String identifier) {
-        this.spotIdentifier = identifier;
+        this.identifier = identifier;
     }
 
 
@@ -79,4 +84,42 @@ public class ParkingSpot implements Serializable {
     public void setType(CarType type) {
         this.type = type;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.carParkFloor);
+        hash = 59 * hash + Objects.hashCode(this.identifier);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ParkingSpot other = (ParkingSpot) obj;
+        if (!Objects.equals(this.identifier, other.identifier)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.carParkFloor, other.carParkFloor)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+    
 }

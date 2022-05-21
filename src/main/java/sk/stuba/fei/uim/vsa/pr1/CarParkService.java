@@ -717,7 +717,7 @@ public class CarParkService extends AbstractCarParkService {
             return null;
         }
 
-        TypedQuery<Reservation> activeRes = em.createQuery("SELECT r FROM Reservation r WHERE r.car = :car AND r.parkingSpot = :spot AND r.endsAt IS NULL", Reservation.class);
+        TypedQuery<Reservation> activeRes = em.createQuery("SELECT r FROM Reservation r WHERE (r.car = :car OR r.parkingSpot = :spot) AND r.endsAt IS NULL", Reservation.class);
         activeRes.setParameter("car", c);
         activeRes.setParameter("spot", p);
         List<Reservation> res = activeRes.getResultList();
@@ -1161,5 +1161,30 @@ public class CarParkService extends AbstractCarParkService {
         return holidayHours;
 
 
+    }
+    
+    public List<Reservation> getReservationForCar(Long carId)
+    {
+         EntityManager em = emf.createEntityManager();
+         TypedQuery<Reservation> q = em.createQuery("SELECT r FROM Reservation r WHERE r.car.id = :carId", Reservation.class);
+         List<Reservation> retList = q.getResultList();
+         em.close();
+         return retList;
+    }
+    
+    public Boolean isParkingSpotAvailable(ParkingSpot spot)
+    {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Reservation> activeRes = em.createQuery("SELECT r FROM Reservation r WHERE r.parkingSpot = :spot AND r.endsAt IS NULL", Reservation.class);
+        activeRes.setParameter("spot", spot);
+        List<Reservation> res = activeRes.getResultList();
+        em.close();
+        if (res != null) {
+            if (res.isEmpty()) {
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 }

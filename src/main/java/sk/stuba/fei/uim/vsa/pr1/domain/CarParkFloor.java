@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CAR_PARK_FLOOR")
@@ -47,5 +48,34 @@ public class CarParkFloor implements Serializable {
             this.parkingSpots.add(spot);
         }
         return this;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.embeddedId);
+        hash = 11 * hash + Objects.hashCode(this.carPark);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CarParkFloor other = (CarParkFloor) obj;
+        if (!Objects.equals(this.embeddedId, other.embeddedId)) {
+            return false;
+        }
+        if (!Objects.equals(this.carPark, other.carPark)) {
+            return false;
+        }
+        return true;
     }
 }

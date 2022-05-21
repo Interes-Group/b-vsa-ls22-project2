@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.vsa.pr1.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "CAR")
@@ -25,6 +26,9 @@ public class Car implements Serializable {
 
     @ManyToOne
     private CarType type;
+    
+    @OneToMany(mappedBy = "car")
+    private List<Reservation> reservations;
 
     public Car() {
     }
@@ -91,4 +95,12 @@ public class Car implements Serializable {
     public void setType(CarType type) {
         this.type = type;
     }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }    
 }
