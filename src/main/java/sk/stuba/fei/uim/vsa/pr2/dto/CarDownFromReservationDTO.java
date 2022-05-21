@@ -49,4 +49,6 @@ public class CarDownFromReservationDTO {
             this.type = new CarTypeDTO(car.getType());
         }
     }
+    
+    public CarDownFromReservationDTO(){}
 }

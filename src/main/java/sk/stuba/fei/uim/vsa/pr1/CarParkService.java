@@ -298,7 +298,7 @@ public class CarParkService extends AbstractCarParkService {
 
         if (f != null) {
             ParkingSpot spot = new ParkingSpot();
-            spot.setIdentifier(spotIdentifier);
+            spot.setSpotIdentifier(spotIdentifier);
             em.persist(spot);
             f.addParkingSpot(spot);
             if (em.getTransaction().isActive()) {
@@ -420,7 +420,7 @@ public class CarParkService extends AbstractCarParkService {
             return null;
         }
         try {
-            databaseSpot.setIdentifier(sp.getIdentifier());
+            databaseSpot.setSpotIdentifier(sp.getSpotIdentifier());
             em.merge(databaseSpot);
             em.getTransaction().commit();
             em.close();

@@ -23,11 +23,12 @@ public class ParkingSpotDTO {
     public Long carPark;
     public Boolean free;
     public List<ReservationDownFromParkingSpotDTO> reservations;
+    public CarTypeDTO type;
     
     public ParkingSpotDTO(ParkingSpot parkingSpot)
     {
         this.id = parkingSpot.getId();
-        this.identifier = parkingSpot.getIdentifier();
+        this.identifier = parkingSpot.getSpotIdentifier();
         this.carParkFloor = parkingSpot.getCarParkFloor().getEmbeddedId().getIdentifier();
         this.carPark = parkingSpot.getCarParkFloor().getCarPark().getId();
         CarParkService service = new CarParkService();
@@ -40,7 +41,13 @@ public class ParkingSpotDTO {
                 return new ReservationDownFromParkingSpotDTO(r);
             }).collect(Collectors.toList());
         }
+        
+        if (parkingSpot.getType() != null) {
+            this.type = new CarTypeDTO(parkingSpot.getType());
+        }
     }
+    
+    public ParkingSpotDTO(){}
 }
 
 

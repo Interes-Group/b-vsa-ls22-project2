@@ -20,4 +20,6 @@ public class CarTypeDTO {
         this.id = type.getId();
         this.name = type.getName();
     }
+    
+    public CarTypeDTO(){}
 }

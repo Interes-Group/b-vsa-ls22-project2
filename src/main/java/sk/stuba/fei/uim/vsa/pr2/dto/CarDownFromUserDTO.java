@@ -55,4 +55,6 @@ public class CarDownFromUserDTO {
             this.type = new CarTypeDTO(c.getType());
         }
     }
+    
+    public CarDownFromUserDTO(){}
 }

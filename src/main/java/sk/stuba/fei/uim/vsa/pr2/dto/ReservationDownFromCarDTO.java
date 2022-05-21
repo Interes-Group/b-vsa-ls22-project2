@@ -49,4 +49,6 @@ public class ReservationDownFromCarDTO {
             this.coupon = new CouponDTO(reservation.getCoupon());
         }
     }
+    
+    public ReservationDownFromCarDTO(){}
 }

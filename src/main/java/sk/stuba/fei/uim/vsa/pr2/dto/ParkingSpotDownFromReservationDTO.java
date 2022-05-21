@@ -42,4 +42,6 @@ public class ParkingSpotDownFromReservationDTO {
             }).collect(Collectors.toList());
         }
     }
+    
+    public ParkingSpotDownFromReservationDTO(){}
 }

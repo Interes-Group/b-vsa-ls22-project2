@@ -18,7 +18,7 @@ public class ParkingSpot implements Serializable {
     private CarParkFloor carParkFloor;
     
     @Column(name = "SPOT_IDENTIFIER")
-    private String identifier;
+    private String spotIdentifier;
 
     @ManyToOne
     private CarType type;
@@ -30,7 +30,7 @@ public class ParkingSpot implements Serializable {
     }
 
     public ParkingSpot(String spotIdentifier) {
-        this.identifier = spotIdentifier;
+        this.spotIdentifier = spotIdentifier;
     }
 
     /**
@@ -38,8 +38,8 @@ public class ParkingSpot implements Serializable {
      *
      * @return the value of identifier
      */
-    public String getIdentifier() {
-        return identifier;
+    public String getSpotIdentifier() {
+        return spotIdentifier;
     }
 
     /**
@@ -47,8 +47,8 @@ public class ParkingSpot implements Serializable {
      *
      * @param identifier new value of identifier
      */
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setSpotIdentifier(String identifier) {
+        this.spotIdentifier = identifier;
     }
 
 
@@ -91,7 +91,7 @@ public class ParkingSpot implements Serializable {
         int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.carParkFloor);
-        hash = 59 * hash + Objects.hashCode(this.identifier);
+        hash = 59 * hash + Objects.hashCode(this.spotIdentifier);
         return hash;
     }
 
@@ -107,7 +107,7 @@ public class ParkingSpot implements Serializable {
             return false;
         }
         final ParkingSpot other = (ParkingSpot) obj;
-        if (!Objects.equals(this.identifier, other.identifier)) {
+        if (!Objects.equals(this.spotIdentifier, other.spotIdentifier)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {

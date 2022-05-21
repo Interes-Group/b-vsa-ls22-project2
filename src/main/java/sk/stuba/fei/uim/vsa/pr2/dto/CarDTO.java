@@ -47,4 +47,8 @@ public class CarDTO {
             this.type = new CarTypeDTO(c.getType());
         }
     }
+    
+     public CarDTO()
+     {
+     }
 }

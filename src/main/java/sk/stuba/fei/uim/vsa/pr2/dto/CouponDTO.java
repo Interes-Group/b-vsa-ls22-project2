@@ -23,4 +23,6 @@ public class CouponDTO {
         this.name = coupon.getName();
         this.discount = coupon.getDiscount();
     }
+    
+    public CouponDTO(){}
 }

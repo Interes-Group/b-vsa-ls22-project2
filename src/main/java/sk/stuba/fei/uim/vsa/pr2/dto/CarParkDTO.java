@@ -38,4 +38,6 @@ public class CarParkDTO {
             }).collect(Collectors.toList());
         }
     }
+    
+    public CarParkDTO(){}
 }

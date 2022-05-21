@@ -47,4 +47,6 @@ public class ReservationDownFromParkingSpotDTO {
             this.coupon = new CouponDTO(reservation.getCoupon());
         }
     }
+    
+    public ReservationDownFromParkingSpotDTO(){}
 }

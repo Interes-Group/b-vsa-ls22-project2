@@ -16,4 +16,6 @@ public class IdDTO {
     {
         this.id = id;
     }
+    
+    public IdDTO(){}
 }

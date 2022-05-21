@@ -23,4 +23,6 @@ public class HolidayDTO {
         this.name = h.getName();
         this.date = h.getDay().format(DateTimeFormatter.ISO_DATE);
     }
+    
+    public HolidayDTO(){}
 }
