@@ -8,9 +8,11 @@ package sk.stuba.fei.uim.vsa.pr2.resources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -125,4 +127,53 @@ public class CarParkResource {
 
         
     }
+    
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long id, String body)
+    {
+        try {
+            CarParkDTO carParkBody = this.jsonMapper.readValue(body, CarParkDTO.class);
+            Object storedCarParkObject = this.carParkService.getCarPark(id);
+            if (storedCarParkObject == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            
+            CarPark storedCarPark = (CarPark) storedCarParkObject;
+            
+            storedCarPark.setAddress(carParkBody.address);
+            storedCarPark.setName(carParkBody.name);
+            storedCarPark.setPricePerHour(carParkBody.prices);
+            
+            this.carParkService.updateCarPark(storedCarParkObject);
+            
+            storedCarParkObject = this.carParkService.getCarPark(id);
+            storedCarPark = (CarPark) storedCarParkObject;
+            this.carParkService.evictCache();
+            return Response.ok(new CarParkDTO(storedCarPark)).build();
+            
+        } catch (JsonProcessingException e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @DELETE
+    public Response delete(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long id)
+    {
+        Object deleted = this.carParkService.deleteCarPark(id);
+        this.carParkService.evictCache();
+        if (deleted != null) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    
 }

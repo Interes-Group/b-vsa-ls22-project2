@@ -1187,4 +1187,13 @@ public class CarParkService extends AbstractCarParkService {
         }
         return true;
     }
+    
+    public void evictCache()
+    {
+        emf.getCache().evictAll();
+    }
+    
+    public void evictCache(Class c) {
+        emf.getCache().evict(c);
+    }
 }
