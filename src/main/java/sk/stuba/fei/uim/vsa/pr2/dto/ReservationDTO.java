@@ -6,24 +6,27 @@
 package sk.stuba.fei.uim.vsa.pr2.dto;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import sk.stuba.fei.uim.vsa.pr1.domain.Reservation;
 
 /**
  *
  * @author sheax
  */
-public class ReservationDownFromCarDTO {
+public class ReservationDTO {
+    
     public Long id;
     public String start;
     public String end;
-    public ParkingSpotDownFromReservationDTO spot;
     public Double prices;
-    public IdDTO car;
+    
+    public CarDownFromReservationDTO car;
+    public ParkingSpotDownFromReservationDTO spot;
     
     public CouponDTO coupon;
     
-    public ReservationDownFromCarDTO(Reservation reservation)
+    public ReservationDTO() {}
+    
+    public ReservationDTO(Reservation reservation)
     {
         this.id = reservation.getId();
         if (reservation.getStartsAt() != null) {
@@ -42,13 +45,11 @@ public class ReservationDownFromCarDTO {
         }
         
         if (reservation.getCar() != null) {
-            this.car = new IdDTO(reservation.getCar().getId());
+            this.car = new CarDownFromReservationDTO(reservation.getCar());
         }
         
         if (reservation.getCoupon() != null) {
             this.coupon = new CouponDTO(reservation.getCoupon());
         }
     }
-    
-    public ReservationDownFromCarDTO(){}
 }

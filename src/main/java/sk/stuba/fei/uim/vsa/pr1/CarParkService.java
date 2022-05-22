@@ -775,9 +775,10 @@ public class CarParkService extends AbstractCarParkService {
         LocalDateTime dayStart = localDate.atStartOfDay();
         LocalDateTime dayEnd = localDate.atTime(LocalTime.MAX);
 
-        TypedQuery<Object> res = em.createQuery("SELECT r FROM Reservation r WHERE r.startsAt >= :dayStart AND r.startsAt <= :dayEnd", Object.class);
+        TypedQuery<Object> res = em.createQuery("SELECT r FROM Reservation r WHERE r.startsAt >= :dayStart AND r.startsAt <= :dayEnd AND r.parkingSpot.id = :parkingSpotId", Object.class);
         res.setParameter("dayStart", dayStart);
         res.setParameter("dayEnd", dayEnd);
+        res.setParameter("parkingSpotId", parkingSpotId);
         List<Object> retList = res.getResultList();
         em.close();
         return retList;
@@ -1230,5 +1231,25 @@ public class CarParkService extends AbstractCarParkService {
         List<Object>  coupons = q.getResultList();
         em.close();
         return coupons;
+    }
+    
+    public List<Object> getAllReservations()
+    {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Object> q = em.createQuery("SELECT r FROM Reservation r", Object.class);
+        List<Object>  reservations = q.getResultList();
+        em.close();
+        return reservations;
+    }
+    
+    public Reservation getReservation(Long id)
+    {
+        if (id == null) {
+            return null;
+        }
+        EntityManager em = emf.createEntityManager();
+        Reservation r = em.find(Reservation.class, id);
+        em.close();
+        return r;
     }
 }

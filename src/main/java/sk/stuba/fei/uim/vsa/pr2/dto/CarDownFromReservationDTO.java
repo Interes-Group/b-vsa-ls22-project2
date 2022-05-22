@@ -22,7 +22,7 @@ public class CarDownFromReservationDTO {
     public String colour;
     public CarTypeDTO type;
     
-    List<IdDTO> reservations;
+    public List<IdDTO> reservations;
     public UserDownFromCarDTO owner;
     
     public CarDownFromReservationDTO(Car car)

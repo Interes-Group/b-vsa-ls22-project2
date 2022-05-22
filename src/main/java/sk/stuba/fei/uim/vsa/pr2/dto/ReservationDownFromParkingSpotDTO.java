@@ -17,7 +17,7 @@ public class ReservationDownFromParkingSpotDTO {
     public String start;
     public String end;
     public IdDTO spot;
-    public Long prices;
+    public Double prices;
     public Object car;
     public CouponDTO coupon;
     
@@ -32,7 +32,7 @@ public class ReservationDownFromParkingSpotDTO {
         }
         
         if (reservation.getPrice() != null) {
-            this.prices = Math.round(reservation.getPrice());
+            this.prices = reservation.getPrice();
         }
         
         if (reservation.getParkingSpot() != null) {

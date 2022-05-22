@@ -36,7 +36,7 @@ public class ParkingSpotDownFromReservationDTO {
         this.reservations = new ArrayList<>();
         
         if (parkingSpot.getReservations() != null) {
-            parkingSpot.getReservations().stream().map(o -> {
+            this.reservations = parkingSpot.getReservations().stream().map(o -> {
                 Reservation r = (Reservation) o;
                 return new IdDTO(r.getId());
             }).collect(Collectors.toList());

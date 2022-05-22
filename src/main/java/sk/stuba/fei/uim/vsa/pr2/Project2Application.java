@@ -18,6 +18,7 @@ import sk.stuba.fei.uim.vsa.pr2.resources.HolidayResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource2;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource3;
+import sk.stuba.fei.uim.vsa.pr2.resources.ReservationResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.UserResource;
 
 /**
@@ -41,6 +42,7 @@ public class Project2Application extends Application {
         resourceClasses.add(CouponResource.class);
         resourceClasses.add(CarTypeResource.class);
         resourceClasses.add(HolidayResource.class);
+        resourceClasses.add(ReservationResource.class);
         
     }
 
