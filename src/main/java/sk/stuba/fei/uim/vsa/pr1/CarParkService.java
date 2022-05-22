@@ -1222,4 +1222,13 @@ public class CarParkService extends AbstractCarParkService {
         em.close();
         return cars;
     }
+    
+    public List<Object> getAllCoupons()
+    {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Object> q = em.createQuery("SELECT c FROM Coupon c", Object.class);
+        List<Object>  coupons = q.getResultList();
+        em.close();
+        return coupons;
+    }
 }
