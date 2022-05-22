@@ -15,6 +15,7 @@ import sk.stuba.fei.uim.vsa.pr2.resources.CarResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource2;
 import sk.stuba.fei.uim.vsa.pr2.resources.ParkingSpotResource3;
+import sk.stuba.fei.uim.vsa.pr2.resources.UserResource;
 
 /**
  *
@@ -33,6 +34,7 @@ public class Project2Application extends Application {
         resourceClasses.add(CarParkResource.class);
         resourceClasses.add(CarParkFloorResource.class);
         resourceClasses.add(CarResource.class);
+        resourceClasses.add(UserResource.class);
         
     }
 
