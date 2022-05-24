@@ -180,7 +180,7 @@ public class UserResource {
     {
         Object userExistsObject = this.carParkService.getUser(id);
         if (userExistsObject == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         User userExists = (User) userExistsObject;
         
@@ -223,7 +223,7 @@ public class UserResource {
     {
         Object userDeletedObject = this.carParkService.deleteUser(id);
         if (userDeletedObject == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.status(Response.Status.NO_CONTENT).build();
     }

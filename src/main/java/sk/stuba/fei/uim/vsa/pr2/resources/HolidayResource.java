@@ -123,7 +123,7 @@ public class HolidayResource {
     {
         Object deletedHoliday = this.carParkService.deleteHoliday(id);
         if (deletedHoliday == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.status(Response.Status.NO_CONTENT).build();
     }

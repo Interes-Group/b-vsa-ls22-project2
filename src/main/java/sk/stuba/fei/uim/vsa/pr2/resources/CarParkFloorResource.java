@@ -84,7 +84,7 @@ public class CarParkFloorResource {
         
         Object existsCarPark = this.carParkService.getCarPark(id);
         if (existsCarPark == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         
         try {
@@ -178,7 +178,7 @@ public class CarParkFloorResource {
     public Response delete(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long id, @PathParam("identifier") String identifier) {
         Object carParkFloorObject = this.carParkService.getCarParkFloor(id, identifier);
         if (carParkFloorObject == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         this.carParkService.deleteCarParkFloor(id, identifier);
         this.carParkService.evictCache();

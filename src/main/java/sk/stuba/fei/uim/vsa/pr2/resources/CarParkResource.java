@@ -206,7 +206,7 @@ public class CarParkResource {
             CarParkDTO carParkBody = this.jsonMapper.readValue(body, CarParkDTO.class);
             Object storedCarParkObject = this.carParkService.getCarPark(id);
             if (storedCarParkObject == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_FOUND).build();
             }
             
             if (carParkBody.address == null || carParkBody.name == null || carParkBody.prices == null) {
@@ -243,7 +243,7 @@ public class CarParkResource {
         if (deleted != null) {
             return Response.status(Response.Status.NO_CONTENT).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
     

@@ -72,7 +72,7 @@ public class ParkingSpotResource2 {
         
         Object existsParkingFloorObject = this.carParkService.getCarParkFloor(id, identifier);
         if (existsParkingFloorObject == null) {
-             return Response.status(Response.Status.BAD_REQUEST).build();
+             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
         try {

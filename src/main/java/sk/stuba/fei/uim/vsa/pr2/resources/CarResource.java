@@ -207,7 +207,7 @@ public class CarResource {
     {
         Object carExistsObject = this.carParkService.getCar(id);
         if (carExistsObject == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         
         Car carExist = (Car) carExistsObject;
@@ -253,7 +253,7 @@ public class CarResource {
     {
         Object carExistObject = this.carParkService.getCar(id);
         if (carExistObject == null) {
-             return Response.status(Response.Status.BAD_REQUEST).build();
+             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
         this.carParkService.deleteCar(id);

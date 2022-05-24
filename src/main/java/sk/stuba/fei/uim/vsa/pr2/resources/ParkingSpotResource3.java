@@ -59,7 +59,7 @@ public class ParkingSpotResource3 {
     {
         Object parkingSpotExists = this.carParkService.getParkingSpot(stopId);
         if (parkingSpotExists == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         
         
@@ -109,7 +109,7 @@ public class ParkingSpotResource3 {
     {
         Object parkingSpotObject  = this.carParkService.deleteParkingSpot(spotId);
         if (parkingSpotObject == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         this.carParkService.evictCache();
         return Response.status(Response.Status.NO_CONTENT).build();

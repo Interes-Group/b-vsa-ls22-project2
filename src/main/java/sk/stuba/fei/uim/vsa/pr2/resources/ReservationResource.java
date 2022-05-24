@@ -112,7 +112,7 @@ public class ReservationResource {
     {
         Reservation reservation = this.carParkService.getReservation(id);
         if (reservation == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         if (reservation.getEndsAt() != null) {
             return Response.status(Response.Status.BAD_REQUEST).build();

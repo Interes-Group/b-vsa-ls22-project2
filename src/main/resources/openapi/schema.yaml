@@ -1,0 +1,1423 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'VSA Projekt 2 schema'
+  license:
+    name: MIT
+servers:
+  - url: 'localhost:8080/api'
+paths:
+  /carparks:
+    get:
+      summary: 'Sample endpoint: Returns carparks'
+      operationId: listCarParks
+      tags:
+        - carPark
+      parameters:
+        - name: name
+          in: query
+          description: name of the Car Park
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Sample response: Details about a user by ID'
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/CarPark'
+    post:
+        summary: 'Create new car park'
+        operationId: createCarPark
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/CarPark'
+        responses:
+            '201':
+                description: 'Entity created and returned'
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: object
+                                $ref: '#/components/schemas/CarPark'
+            '400':
+                description: 'Incorrectly formed body'
+
+
+    
+  /carparks/{id}:
+    get:
+        summary: Get carp park by id
+        operationId: getCarParkById
+        parameters:
+            - name: id
+              in: path
+              description: 'id of the car park'
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        responses:
+            '200': 
+                description: 'Car park was found and returned'
+                content:
+                    application/json:
+                        schema: 
+                            $ref: '#/components/schemas/CarPark'
+            '404':
+                description: 'Car park with id not found'
+    put:
+        summary: 'Update car park'
+        operationId: updateCarPark
+        parameters:
+            - name: id
+              in: path
+              description: 'id of the car park'
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/CarPark'
+        responses:
+            '200':
+                description: 'Car park was updated and returned'
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CarPark'
+            '400':
+                description: 'Ijncorrectly formed body'
+            '404':
+                description: 'Car park with id was not found'
+
+    delete:
+        summary: 'Delete Car park along with all floors and spots'
+        operationId: deleteCarPark
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        responses:
+            '204':
+                description: 'Car park was deleted'
+            '404':
+                description: 'Car park with id was not found'
+ 
+  /carparks/{id}/floors:
+    get:
+        summary: 'Return collection of all floors for car park with given id'
+        operationId: getCarParkFloors
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        responses:
+            '200':
+                description: 'Returns all car park floors for given car park'
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/CarParkFloor'
+            '404':
+                description: 'Car park with given id does not exist so there are no Car Park floors for it'
+    post:
+        summary: 'Create new car park floor for given car park'
+        operationId: createCarParkFloor
+        parameters:
+            - name: id
+              required: true
+              in: path
+              description: 'Id of car park'
+              schema:
+                  type: integer
+                  format: int64
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/CarParkFloor'
+        responses:
+            '201':
+                description: 'Car park floor created and returned'
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CarParkFloor'
+            '404':
+                description: 'Car park does not exist and car park floor cannot be created for it'
+            '400':
+                description: 'Incorrectly formed request body'
+  
+  /carparks/{id}/floors/{identifier}:
+    get:
+        summary: 'Get car park floor that belongs to car park with given id and has given identifier'
+        operationId: getCarParkFloor
+        parameters:
+            - name: id
+              description: 'Id of car park'
+              required: true
+              in: path
+              schema:
+                type: integer
+                format: int64
+            - name: identifier
+              description: 'Identifier of the car park floor'
+              required: true
+              in: path
+              schema:
+                type: string
+        responses:
+            '200':
+                description: 'Car park floor found and returned'
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CarParkFloor'
+            '404':
+                  description: 'Car park with given id was not found or car park floor with given identifier for given car park was not found'
+    delete:
+        summary: 'Delete car park floor for car park with given id with given identificator'
+        operationId: deleteCarParkFloor
+        parameters:
+            - name: id
+              description: 'Id of car park'
+              required: true
+              in: path
+              schema:
+                type: integer
+                format: int64
+            - name: identifier
+              description: 'Identifier of the car park floor'
+              required: true
+              in: path
+              schema:
+                type: string
+        responses:
+            '204':
+                description: 'Car park floor deleted'
+            '404':
+                description: 'Either car park with given id does not exist or there is no floor for the car park with given identificator'
+  
+  /carparks/{id}/spots:
+    get:
+        summary: 'Get parking spots for given car park'
+        operationId: getParkingSpots
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+              description: "Id of car park"
+            - name: free
+              description: 'If true only free parking spots (spots where there is currently no reservation) are returned, if false only occupied spots will be returned'
+              in: query
+              required: false
+              schema:
+                  type: boolean
+        responses:
+           '200':
+               description: 'Car park exists - parking spots for that car park are returned'
+               content:
+                   application/json:
+                       schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/ParkingSlot'
+
+  /carparks/{id}/floors/{identifier}/spots:
+    get:
+        summary: 'Get parking spots for given car park and given floor'
+        operationId: getParkingSpotsForFloor
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+              description: 'Id of car park'
+            - name: identifier
+              in: path
+              required: true
+              description: 'Identifier of the car park floor'
+              schema:
+                  type: string
+        responses:
+            '200':
+                description: 'Car park and floor exist and parking spots are returned'
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/ParkingSlot'
+            '404':
+                description: 'Car park or car park floor does not exist'
+    
+    post:
+        summary: 'Create parking spot for given car park and given car park floor'
+        operationId: createParkingSpot
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+              description: 'Id of car park'
+            - name: identifier
+              in: path
+              required: true
+              description: 'Identifier of the car park floor'
+              schema:
+                  type: string
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ParkingSpot'
+        responses:
+            '201':
+                description: 'Parking spot created and returned'
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ParkingSpot'
+            '404':
+                description: 'Car park or car park floor does not exist and parking floor cannot be created for it'
+            '400':
+                description: 'Incorrectly formed request body'
+  /parkingSpots/{id}:
+      get:
+            summary: 'Get parking spot by id'
+            operationId: getParkingSpot
+            parameters:
+              - name: id
+                in: path
+                required: true
+                description: 'Id of parking spot'
+                schema:
+                    type: integer
+                    format: int64
+            responses:
+                '200':
+                    description: 'Parking spot exists and is returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ParkingSpot'
+                '404':
+                    description: 'Parking spot does not exist'
+      put:
+            summary: 'Update parking spot'
+            operationId: updateParkingSpot
+            parameters:
+              - name: id
+                in: path
+                required: true
+                description: 'Id of parking spot'
+                schema:
+                    type: integer
+                    format: int64
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ParkingSpot'
+            responses:
+                '201':
+                    description: 'Parking spot updated and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ParkingSpot'
+                '404':
+                    description: 'Parking spot does not exist'
+                '400':
+                    description: 'Incorrectly formed request body'
+      delete:
+            summary: 'Delete parking spot'
+            operationId: deleteParkingSpot
+            parameters:
+              - name: id
+                in: path
+                required: true
+                description: 'Id of parking spot'
+                schema:
+                    type: integer
+                    format: int64
+            responses:
+                '204':
+                    description: 'Parking spot deleted'
+                '404':
+                    description: 'Parking spot does not exist'
+  /cars:
+        get:
+            summary: 'Return cars'
+            operationId: getCars
+            parameters:
+                - name: user
+                  required: false
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                  description: 'Id of user - if given only cars belonging to that user will be returned'
+                - name: vrp
+                  in: query
+                  required: false
+                  description: 'Vehicle registration plate - if given, only vehicle that has this vrp will be returned'
+                  schema:
+                    type: string
+            responses:
+                '200':
+                    description: 'Cars returned'
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Car'
+        post:
+            summary: 'Create car'
+            operationId: createCar
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Car' 
+            responses:
+                '201':
+                    description: 'Car created and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Car'
+                '400':
+                    description: 'Incorrectly formed request body'
+  /cars/{id}:
+        get:
+            summary: 'Get car with id'
+            operationId: getCar
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of car'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '200':
+                    description: 'Car exists and is returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Car'
+                '404':
+                    description: 'Car with given id does not exist'
+        put:
+            summary: 'Update car'
+            operationId: updateCar
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of car'
+                  schema:
+                      type: integer
+                      format: int64
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Car'
+            responses:
+                '201':
+                    description: 'Car was created and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Car'
+                '404':
+                    description: 'Car was not found'
+                '400':
+                    description: 'Incorrectly formed request body'
+        delete:
+            summary: 'Delete car'
+            operationId: deleteCar
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of car'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '204':
+                    description: 'Car deleted'
+                '404':
+                    description: 'Car does not exist'
+  /users:
+        get:
+            summary: 'Get users'
+            operationId: getUsers
+            parameters:
+                - name: email
+                  in: query
+                  required: false
+                  description: 'Email of user, if given only user with given email will be returned if it exists'
+                  schema:
+                      type: string
+                      format: email
+            responses:
+                '200':
+                    description: 'Users returned'
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/User'
+        post:
+            summary: 'Create user'
+            operationId: createUser
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+            responses:
+                '201':
+                    description: 'User created and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '400':
+                    description: 'Incorrectly formed request body'
+  /users/{id}:
+        get:
+            summary: 'Get user with id'
+            operationId: getUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of user'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '200':
+                    description: 'User exists and is returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '404':
+                    description: 'User not found'
+        put:
+            summary: 'Update user'
+            operationId: updateUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of user'
+                  schema:
+                      type: integer
+                      format: int64
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                           $ref: '#/components/schemas/User'
+            responses:
+                '200':
+                    description: 'User updated and returned'
+                    content:
+                        application/json:
+                            schema:
+                               $ref: '#/components/schemas/User' 
+                '404':
+                    description: 'User not found'
+                '400':
+                    description: 'Incorrectly formed request body'
+        delete:
+            summary: 'Delete user'
+            operationId: deletUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of user'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '204':
+                    description: 'User deleted'
+                '404':
+                    description: 'User does not exist'
+  
+  /reservations:
+        get:
+            summary: 'Get reservations'
+            operationId: getReservations
+            parameters:
+                - name: user
+                  in: query
+                  required: false
+                  description: 'Id of user - if given only reservations of given user will be returned'
+                  schema:
+                      type: integer
+                      format: int64
+                - name: spot
+                  in: query
+                  required: false
+                  description: 'Id of parking spot, required only if date is used. If used only reservations that are made on that parking spot are returned'
+                  schema:
+                      type: number
+                      format: int64
+                - name: date
+                  in: query
+                  required: false
+                  description: 'Date of start of the reservation, required only if spot is used. If used only reservations that started on the date are returned'
+                  schema:
+                      type: string
+                      format: date
+            responses:
+                '200':
+                    description: 'Returns reservations'
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Reservation'
+        post:
+            summary: 'Create new reservation'
+            operationId: createReservation
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Reservation'
+            responses:
+                '201':
+                    description: 'Reservattion returned and created'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Reservation'
+                '400':
+                    description: 'Incorrectly formed request body'
+
+  /reservations/{id}:
+        get:
+            summary: 'Get reservation by id'
+            operationId: getReservation
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of reservation'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '200':
+                    description: 'Reservation exists and is returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Reservation'
+                '404':
+                    description: 'Reservation does not exist'
+        put:
+            summary: 'Update reservation'
+            operationId: updateReservation
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of reservation'
+                  schema:
+                      type: integer
+                      format: int64
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Reservation'
+            responses:
+                '200':
+                    description: 'Reservation updated and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Reservation'
+                '404':
+                    description: 'Reservation does not exist'
+                '400':
+                    description: 'Incorrectly formed request body'
+
+  /reservations/{id}/end:
+        get:
+            summary: 'End a reservation. If reservation was not ended it sets the time of ending as the current time and calculate price'
+            parameters:
+              - name: id
+                in: path
+                required: true
+                description: 'Id of reservation'
+                schema:
+                    type: integer
+                    format: int64
+            responses:
+                '200':
+                    description: 'Only if reservation exists and is not ended yet. Sets the ending tima and returns the reservation'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Reservation'
+                '404':
+                    description: 'Reservation does not exist'
+                '400':
+                    description: 'Reservation is already ended'
+  /coupons:
+      get:
+          summary: 'Get discout coupons'
+          operationId: getCoupons
+          parameters:
+              - name: user
+                in: query
+                required: false
+                description: 'Id of user. If given only coupons of user will de retruend'
+                schema:
+                    type: integer
+                    format: int64
+          responses:
+              '200':
+                  description: 'Get collection of coupons'
+                  content:
+                      application/json:
+                          schema:
+                              $ref: '#/components/schemas/Coupon'
+      post:
+          summary: 'Create discount coupon'
+          operationId: createCoupon
+          requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Coupon'
+          responses:
+                '201':
+                    description: 'Coupon created and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Coupon'
+                '400':
+                    description: 'Incorrectly formed request body'
+                
+  /coupons/{id}:
+        get:
+            summary: 'Get coupon by id'
+            operationId: getCoupon
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of the coupon'
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                '200':
+                    description: 'Coupon found and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Coupon'
+
+        delete:
+            summary: 'Delete coupon'
+            operationId: deleteCoupon
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of the coupon'
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                '204':
+                    description: 'Coupon deleted'
+                '404':
+                    description: 'Coupon does not exits'
+  /coupons/{id}/give/{userId}:
+        get:
+            summary: 'Give coupon to user'
+            operationId: giveCouponToUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: 'Id of the coupon to be given to user'
+                  schema:
+                      type: integer
+                      format: int64
+                - name: userId
+                  description: 'Id of the user that will be given the coupon'
+                  required: true
+                  in: path
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '200':
+                    description: 'Coupon given to user and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Coupon'
+                '404':
+                    description: 'Either coupon or user does not exist'
+
+  /cartypes:
+        get:
+            summary: 'Get car types'
+            operationId: getCarTypes
+            parameters:
+                - name: name
+                  required: false
+                  in: query
+                  description: 'Name of a cartype. If set only type with that name will be part of the collection'
+                  schema:
+                      type: string
+            responses:
+                '200':
+                    description: 'Car types returned'
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/CarType'
+        
+        post:
+            summary: 'Create car type'
+            operationId: createCarType
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                           $ref: '#/components/schemas/CarType'
+            responses:
+                '201':
+                    description: 'Car type created and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CarType'
+                '400':
+                    description: 'Incorrectly formed request body'
+  
+  /cartypes/{id}:
+        get:
+            summary: 'Get car type'
+            operationId: getCarType
+            parameters:
+                - name: id
+                  required: true
+                  in: path
+                  description: 'Id of the car type'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '200':
+                    description: 'Car type found and returned'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CarType'
+                '404':
+                    description: 'Car type does not exist'
+        delete:
+            summary: 'Delete car type'
+            operationId: deleteCarType
+            parameters:
+                - name: id
+                  required: true
+                  in: path
+                  description: 'Id of the car type'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '204':
+                    description: 'Car type deleted'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CarType'
+                '404':
+                    description: 'Car type not found'
+  /holidays:
+        get:
+            summary: 'Get holidays'
+            operationId: getHolidays
+            parameters:
+                - name: date
+                  in: query
+                  required: false
+                  description: 'Date of the holiday. If set only that holiday will be present in collection'
+                  schema:
+                      type: string
+                      format: date
+            responses:
+                '200':
+                    description: 'Return holidays'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Holiday'
+        
+        post:
+            summary: 'Create holiday'
+            operationId: createHoliday
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Holiday'
+            responses:
+                '200':
+                    description: 'Holiday created and returned'
+                    content:
+                        application/json:
+                            schema: 
+                                $ref: '#/components/schemas/Holiday'
+                '400':
+                    description: 'Incorrectly formed request body'
+
+
+  /holidays/{id}:
+        delete:
+            summary: 'Delete holiday'
+            operationId: deleteHoliday
+            parameters:
+                - name: id
+                  required: true
+                  in: path
+                  description: 'Id of the holiday'
+                  schema:
+                      type: integer
+                      format: int64
+            responses:
+                '204':
+                    description: 'Holiday deleted'
+                '404':
+                    description: 'Holiday not found'
+            
+
+
+                            
+            
+
+                
+        
+      
+
+
+
+
+
+            
+            
+        
+
+            
+
+
+
+
+
+
+
+
+
+    
+                
+
+
+
+        
+
+
+            
+
+
+
+
+            
+
+
+
+    
+      
+    
+
+
+
+
+        
+
+
+
+              
+            
+
+
+
+
+components:
+  schemas:
+    CarPark:
+        type: object
+        required:
+            - id
+            - name
+            - address
+            - prices
+        properties:
+            id:
+                type: integer
+                format: int64
+            name:
+                type: string
+            address:
+                type: string
+            prices:
+                type: number
+            floors:
+                type: array
+                items:
+                    $ref: CarParkFloor
+            
+    CarParkFloor:
+        type: object
+        required:
+            - id
+            - identifier
+            - carPark
+        properties:
+            id:
+                type: integer
+                format: int64
+            identifier:
+                type: string
+            carPark:
+                type: integer
+                format: int64
+            spots:
+                type: array
+                items:
+                    typ: object
+                    $ref: ParkingSpot
+    ParkingSpot:
+        type: object
+        required:
+            - id
+            - identifier
+            - carParkFloor
+            - carPark
+            - free
+        properties:
+            id:
+                type: integer
+                format: int64
+            identifier:
+                type: string
+            carParkFloor:
+                type: string
+            carPark:
+                type: integer
+                format: int64
+            type:
+                type: object
+                $ref: CarType  
+            free:
+                type: boolean
+            reservations:
+                type: array
+                items:
+                    $ref: ReservationDownFromParkingSpot
+    
+    Reservation:
+        type: object
+        required:
+            - id
+        properties:
+            id:
+                type: integer
+                format: int64
+            start:
+                type: string
+                format: datetime
+            end:
+                type: string
+                format: datetime
+            prices:
+                type: number
+            car:
+                type: object
+                $ref: CarDownFromReservation
+            spot:
+                type: object
+                $ref: ParkingSpotDownFromReservation
+            coupon:
+                type: object
+                $ref: Coupon
+    
+    ReservationDownFromParkingSpot:
+        type: object
+        required:
+            - id
+        properties:
+            id:
+                type: integer
+                format: int64
+            start:
+                type: string
+                format: datetime
+            end:
+                type: string
+                format: datetime
+            prices:
+                type: number
+            
+            car:
+                type: object
+                $ref: CarDownFromReservation
+            
+            spot:
+                type: object
+                properties:
+                     id:
+                        type: integer
+                        format: int64
+            coupon:
+                type: object
+                $ref: Coupon
+            
+            
+    ParkingSpotDownFromReservation:
+        type: object
+        required:
+            - id
+            - identifier
+            - carParkFloor
+            - carPark
+            - free
+        properties:
+            id:
+                type: integer
+                format: int64
+            identifier:
+                type: string
+            carParkFloor:
+                type: string
+            carPark:
+                type: integer
+                format: int64
+            type:
+                type: object
+                $ref: CarType
+            free:
+                type: boolean
+            reservations:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        id:
+                            type: integer
+                            format: int64
+    Car:
+        type: object
+        required:
+            - id
+            - brand
+            - model
+            - vrp
+            - color
+            - owner
+        properties:
+            id:
+                type: integer
+                format: int64
+            brand:
+                type: string
+            model:
+                type: string
+            vrp:
+                type: string
+            colour:
+                type: string
+            type:
+                type: object
+                $ref: CarType
+            owner:
+                type: object
+                $ref: UserDownFromCar
+            reservations:
+                type: array
+                items:
+                    type: object
+                    $ref: ReservationDownFromCar
+    
+    ReservationDownFromCar:
+        type: object
+        required:
+            - id
+        properties:
+            id:
+                type: integer
+                format: int64
+            start:
+                type: string
+                format: datetime
+            end:
+                type: string
+                format: datetime
+            prices:
+                type: number
+            car:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        format: int64
+            spot:
+                type: object
+                $ref: ParkingSpotDownFromReservation
+            coupon:
+                type: object
+                $ref: Coupon
+    
+    CarDownFromReservation:
+        type: object
+        required:
+            - id
+            - brand
+            - model
+            - vrp
+            - color
+            - owner
+        properties:
+            id:
+                type: integer
+                format: int64
+            brand:
+                type: string
+            model:
+                type: string
+            vrp:
+                type: string
+            colour:
+                type: string
+            type:
+                type: object
+                $ref: CarType
+            owner:
+                type: object
+                $ref: UserDownFromCar
+            reservations:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        id:
+                            type: integer
+                            format: int64
+    CarDownFromUser:
+        type: object
+        required:
+            - id
+            - brand
+            - model
+            - vrp
+            - color
+            - owner
+        properties:
+            id:
+                type: integer
+                format: int64
+            brand:
+                type: string
+            model:
+                type: string
+            vrp:
+                type: string
+            colour:
+                type: string
+            type:
+                type: object
+                $ref: CarType
+            owner:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        format: int64
+            reservations:
+                type: array
+                items:
+                    type: object
+                    $ref: ReservationDownFromCar
+        
+
+
+    User:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+            type: string
+        email:
+            type: string
+        cars:
+            type: array
+            items:
+                type: object
+                $ref: CarDownFromUser
+    
+    UserDownFromCar: 
+        type: object
+        required:
+            - id
+            - firstName
+            - lastName
+            - email
+        properties:
+            id:
+                type: integer
+                format: int64
+            firstName:
+                type: string
+            lastName:
+                type: string
+            email:
+                type: string
+            cars:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        id:
+                            type: integer
+                            format: int64
+    
+    Coupon:
+        type: object
+        required:
+            - id
+            - name
+            - discount
+        properties:
+            id:
+                type: integer
+                format: int64
+            name:
+                type: string
+            discount:
+                type: number
+
+    CarType:
+        type: object
+        required:
+            - id
+            - name
+        properties:
+            id:
+                type: integer
+                format: int64
+            name:
+                type: string
+    
+    Holiday:
+        type: object
+        required:
+            - id
+            - name
+            - date
+        properties:
+            id:
+                type: integer
+                format: int64
+            name:
+                type: string
+            date:
+                type: string
+                format: date
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
