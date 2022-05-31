@@ -9,7 +9,7 @@ servers:
 paths:
   /carparks:
     get:
-      summary: 'Sample endpoint: Returns carparks'
+      summary: 'Returns carparks'
       operationId: listCarParks
       tags:
         - carPark
@@ -1048,7 +1048,7 @@ components:
             floors:
                 type: array
                 items:
-                    $ref: CarParkFloor
+                    $ref: '#/components/schemas/CarParkFloor'
             
     CarParkFloor:
         type: object
@@ -1068,8 +1068,7 @@ components:
             spots:
                 type: array
                 items:
-                    typ: object
-                    $ref: ParkingSpot
+                    $ref: '#/components/schemas/ParkingSpot'
     ParkingSpot:
         type: object
         required:
@@ -1097,7 +1096,7 @@ components:
             reservations:
                 type: array
                 items:
-                    $ref: ReservationDownFromParkingSpot
+                    $ref: '#/components/schemas/ReservationDownFromParkingSpot'
     
     Reservation:
         type: object
@@ -1116,14 +1115,11 @@ components:
             prices:
                 type: number
             car:
-                type: object
-                $ref: CarDownFromReservation
+                $ref: '#/components/schemas/CarDownFromReservation'
             spot:
-                type: object
-                $ref: ParkingSpotDownFromReservation
+                $ref: '#/components/schemas/ParkingSpotDownFromReservation'
             coupon:
-                type: object
-                $ref: Coupon
+                $ref: '#/components/schemas/Coupon'
     
     ReservationDownFromParkingSpot:
         type: object
@@ -1143,8 +1139,7 @@ components:
                 type: number
             
             car:
-                type: object
-                $ref: CarDownFromReservation
+                $ref: '#/components/schemas/CarDownFromReservation'
             
             spot:
                 type: object
@@ -1153,8 +1148,7 @@ components:
                         type: integer
                         format: int64
             coupon:
-                type: object
-                $ref: Coupon
+                $ref: '#/components/schemas/Coupon'
             
             
     ParkingSpotDownFromReservation:
@@ -1177,8 +1171,7 @@ components:
                 type: integer
                 format: int64
             type:
-                type: object
-                $ref: CarType
+                $ref: '#/components/schemas/CarType'
             free:
                 type: boolean
             reservations:
@@ -1211,16 +1204,13 @@ components:
             colour:
                 type: string
             type:
-                type: object
-                $ref: CarType
+                $ref: '#/components/schemas/CarType'
             owner:
-                type: object
-                $ref: UserDownFromCar
+                $ref: '#/components/schemas/UserDownFromCar'
             reservations:
                 type: array
                 items:
-                    type: object
-                    $ref: ReservationDownFromCar
+                    $ref: '#/components/schemas/CReservationDownFromCar'
     
     ReservationDownFromCar:
         type: object
@@ -1245,11 +1235,9 @@ components:
                         type: integer
                         format: int64
             spot:
-                type: object
-                $ref: ParkingSpotDownFromReservation
+                $ref: '#/components/schemas/ParkingSpotDownFromReservation'
             coupon:
-                type: object
-                $ref: Coupon
+                $ref: '#/components/schemas/Coupon'
     
     CarDownFromReservation:
         type: object
@@ -1273,11 +1261,9 @@ components:
             colour:
                 type: string
             type:
-                type: object
-                $ref: CarType
+                $ref: '#/components/schemas/CarType'
             owner:
-                type: object
-                $ref: UserDownFromCar
+                $ref: '#/components/schemas/UserDownFromCar'
             reservations:
                 type: array
                 items:
@@ -1308,8 +1294,7 @@ components:
             colour:
                 type: string
             type:
-                type: object
-                $ref: CarType
+                $ref: '#/components/schemas/CarType'
             owner:
                 type: object
                 properties:
@@ -1319,8 +1304,7 @@ components:
             reservations:
                 type: array
                 items:
-                    type: object
-                    $ref: ReservationDownFromCar
+                    $ref: '#/components/schemas/ReservationDownFromCar'
         
 
 
@@ -1344,8 +1328,7 @@ components:
         cars:
             type: array
             items:
-                type: object
-                $ref: CarDownFromUser
+                $ref: '#/components/schemas/CarDownFromUser'
     
     UserDownFromCar: 
         type: object
