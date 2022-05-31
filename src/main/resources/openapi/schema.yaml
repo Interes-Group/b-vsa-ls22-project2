@@ -49,10 +49,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                type: object
-                                $ref: '#/components/schemas/CarPark'
+                            $ref: '#/components/schemas/CarPark'
             '400':
                 description: 'Incorrectly formed body'
 
