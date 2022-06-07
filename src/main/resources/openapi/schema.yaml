@@ -22,12 +22,7 @@ paths:
             type: string
       responses:
         '200':
-          description: 'Sample response: Details about a user by ID'
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
+          description: "Get car parks"
           content:
             application/json:
               schema:
@@ -1057,6 +1052,7 @@ components:
             id:
                 type: integer
                 format: int64
+                nullable: true
             identifier:
                 type: string
             carPark:
@@ -1087,7 +1083,7 @@ components:
                 format: int64
             type:
                 type: object
-                $ref: CarType  
+                $ref: '#/components/schemas/CarType'  
             free:
                 type: boolean
             reservations:
