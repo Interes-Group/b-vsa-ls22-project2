@@ -309,7 +309,7 @@ paths:
                 description: 'Car park or car park floor does not exist and parking floor cannot be created for it'
             '400':
                 description: 'Incorrectly formed request body'
-  /parkingSpots/{id}:
+  /parkingspots/{id}:
       get:
             summary: 'Get parking spot by id'
             operationId: getParkingSpot
