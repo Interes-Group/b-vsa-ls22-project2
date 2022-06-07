@@ -131,7 +131,7 @@ public class ParkingSpotResource2 {
             createdSpotObject = this.carParkService.getParkingSpot(createdParkingSpot.getId());
             createdParkingSpot = (ParkingSpot) createdSpotObject;
             //this.carParkService.evictCache();
-            return Response.ok(this.jsonMapper.writeValueAsString(new ParkingSpotDTO(createdParkingSpot))).build();
+            return Response.status(Response.Status.CREATED).entity(this.jsonMapper.writeValueAsString(new ParkingSpotDTO(createdParkingSpot))).build();
             
             
         } catch (JsonProcessingException e) {
