@@ -126,10 +126,21 @@ public class UserResource {
                         if (car.type.id != null) {
                             Object typeExistsObject = this.carParkService.getCarType(car.type.id);
                             if (typeExistsObject == null) {
-                                return Response.status(Response.Status.BAD_REQUEST).build();
+                                car.type.id = null;
+                                if (car.type.name == null) {
+                                    return Response.status(Response.Status.BAD_REQUEST).build();
+                                }
+                                typeExistsObject = this.carParkService.getCarType(car.type.name);
+                                if (typeExistsObject != null) {
+                                    return Response.status(Response.Status.BAD_REQUEST).build();
+                                }
                             }
                         } else {
                             if (car.type.name == null) {
+                                return Response.status(Response.Status.BAD_REQUEST).build();
+                            }
+                            Object typeExistsObject = this.carParkService.getCarType(car.type.name);
+                            if (typeExistsObject != null) {
                                 return Response.status(Response.Status.BAD_REQUEST).build();
                             }
                         }

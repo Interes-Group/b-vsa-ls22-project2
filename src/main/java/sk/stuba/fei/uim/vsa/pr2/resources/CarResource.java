@@ -160,7 +160,14 @@ public class CarResource {
                 if (request.type.id != null) {
                     Object typeExistsObject = this.carParkService.getCarType(request.type.id);
                     if (typeExistsObject == null) {
-                        return Response.status(Response.Status.BAD_REQUEST).build();
+                        request.type.id = null;
+                        if (request.type.name == null) {
+                            return Response.status(Response.Status.BAD_REQUEST).build();
+                        }
+                        typeExistsObject = this.carParkService.getCarType(request.type.name);
+                        if (typeExistsObject != null) {
+                            return Response.status(Response.Status.BAD_REQUEST).build();
+                        }
                     }
                     carTypeId = request.type.id;
                 } else {
