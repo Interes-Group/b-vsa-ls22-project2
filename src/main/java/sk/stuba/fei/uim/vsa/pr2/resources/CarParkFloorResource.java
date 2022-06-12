@@ -118,7 +118,14 @@ public class CarParkFloorResource {
                         if (spot.type.id != null) {
                             Object existTypeObject = this.carParkService.getCarType(spot.type.id);
                             if (existTypeObject == null) {
-                                return Response.status(Response.Status.BAD_REQUEST).build();
+                                spot.type.id = null;
+                                if (spot.type.name == null) {
+                                    return Response.status(Response.Status.BAD_REQUEST).build();
+                                }
+                                existTypeObject = this.carParkService.getCarType(spot.type.name);
+                                if (existTypeObject != null) {
+                                    return Response.status(Response.Status.BAD_REQUEST).build();
+                                }
                             }
                         } else {
                             if (spot.type.name == null) {

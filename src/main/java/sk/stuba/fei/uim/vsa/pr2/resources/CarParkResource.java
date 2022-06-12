@@ -21,8 +21,10 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 import sk.stuba.fei.uim.vsa.pr1.domain.*;
@@ -88,7 +90,6 @@ public class CarParkResource {
         try {
             CarParkDTO request = this.jsonMapper.readValue(body, CarParkDTO.class);
         
-        
             if (request != null) {
                 
                 if (request.name == null || request.address == null || request.prices == null) {
@@ -126,7 +127,16 @@ public class CarParkResource {
                                     if (spot.type.id != null) {
                                         Object existTypeObject = this.carParkService.getCarType(spot.type.id);
                                         if (existTypeObject == null) {
-                                            return Response.status(Response.Status.BAD_REQUEST).build();
+                                            spot.type.id = null;
+                                            if (spot.type.name == null) {
+                                                return Response.status(Response.Status.BAD_REQUEST).build();
+                                            } else {
+                                                existTypeObject = this.carParkService.getCarType(spot.type.name);
+                                                if (existTypeObject != null) {
+                                                    return Response.status(Response.Status.BAD_REQUEST).build();
+                                                }
+                                                
+                                            }
                                         }
                                     } else {
                                         if (spot.type.name == null) {
