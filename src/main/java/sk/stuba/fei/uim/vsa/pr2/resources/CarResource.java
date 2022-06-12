@@ -142,9 +142,14 @@ public class CarResource {
             if (request.owner.id != null) {
                 Object userExistsObject = this.carParkService.getUser(request.owner.id);
                 if (userExistsObject == null) {
-                    return Response.status(Response.Status.BAD_REQUEST).build();
+                    request.owner.id = null;
+                    if (request.owner.email == null || request.owner.firstName == null || request.owner.lastName == null) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                } else {
+                    userId = request.owner.id;
                 }
-                userId = request.owner.id;
+                
             } else {
                 if (request.owner.email == null || request.owner.firstName == null || request.owner.lastName == null) {
                     return Response.status(Response.Status.BAD_REQUEST).build();
