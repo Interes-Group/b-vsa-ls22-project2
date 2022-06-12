@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 import groovy.sql.Sql
 @GrabConfig(systemClassLoader = true)
 @Grab(group = 'mysql', module = 'mysql-connector-java', version = '5.1.49')
@@ -9,7 +10,6 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.time.Duration
 import java.time.LocalDateTime
-
 
 /**
  * Test steps:
@@ -39,11 +39,15 @@ String MAVEN_OUTPUT = 'maven-output.txt'
 String MAVEN_ERRORS = 'maven-error-output.txt'
 String NEWMAN_OUTPUT = 'postman-test-outputs.txt'
 String NEWMAN_ERRORS = 'postman-test-errors.txt'
+String NEWMAN_RESULTS = 'postman-tests-report.json'
+String WS_OUTPUT = 'web-server-output.txt'
+String WS_ERROR = 'web-server-error.txt'
 Integer MAX_POINTS = 20
 Integer MAX_BONUS_POINTS = 5
 String POSTMAN_ENV_FILE = new File(CWD + File.separator + 'VSA_env.postman_environment.json').absolutePath
 String TEST_DIR = CWD + File.separator + 'tests' + File.separator + 'required'
 String TEST_BONUS_DIR = CWD + File.separator + 'tests' + File.separator + 'bonus'
+String TEST_WS_URL = "http://localhost:8080/users"
 
 def input = JOptionPane.&showInputDialog
 def confirm = JOptionPane.&showConfirmDialog
@@ -305,7 +309,7 @@ def editPersistence = { File project ->
         punit.append(props)
     }
     editProperty(props as Node, 'javax.persistence.jdbc.driver', 'com.mysql.jdbc.Driver')
-    editProperty(props as Node, 'javax.persistence.jdbc.url', 'jdbc:mysql://localhost:3306/VSA_PR1?serverTimezone=UTC')
+    editProperty(props as Node, 'javax.persistence.jdbc.url', 'jdbc:mysql://localhost:3306/VSA_PR2?serverTimezone=UTC')
     editProperty(props as Node, 'javax.persistence.jdbc.user', 'vsa')
     editProperty(props as Node, 'javax.persistence.jdbc.password', 'vsa')
     editProperty(props as Node, 'javax.persistence.schema-generation.database.action', 'drop-and-create')
@@ -347,39 +351,81 @@ def buildProject = { File project, File output, File errors ->
     process.waitFor()
 }
 
-def runProject = { File project ->
+def runProject = { File project, File output, File error ->
     def targetDir = new File(project.absolutePath + File.separator + 'target')
     if (!targetDir.exists())
         throw new RuntimeException('No target folder in project')
     File jarFile = Arrays.asList(targetDir.listFiles()).find { it.name.contains('jar-with-dependencies.jar') }
     if (!jarFile || !jarFile.exists())
         throw new RuntimeException('No executable jar file has been found!')
-    def args = ['cmd', '/c', 'java', '-jar', jarFile.name]
+    println "Executing ${jarFile.name}"
+    def args = ['java', '-jar', jarFile.name]
     def builder = new ProcessBuilder(args)
     builder.directory(targetDir)
-    return builder.start()
+    builder.redirectOutput(output)
+    builder.redirectError(error)
+    def process = builder.start()
+    Thread.sleep(3000)
+    if (!process.isAlive())
+        throw new RuntimeException('Web server process is not running!')
+    return process
+}
+
+def stopServer = { Process process ->
+    println "Stopping project's web server"
+    process.destroy()
+    process.waitForOrKill(1000)
+    process.destroyForcibly()
+    process.waitFor()
 }
 
 def testWebServerReadiness = {
-    def get = new URL("http://localhost:8080/users").openConnection()
-    get.setRequestProperty("Accept", "application/json")
-    get.setRequestProperty('Authorization', "Basic ${Base64.getEncoder().encode("admin@vsa.sk:1".bytes)}")
+    def get = new URL(TEST_WS_URL).openConnection()
+    get.requestMethod = 'GET'
+    get.addRequestProperty("Accept", "application/json")
+    get.addRequestProperty('Authorization', "Basic ${new String(Base64.getEncoder().encode("admin@vsa.sk:1".bytes))}")
     get.setConnectTimeout(5000)
     get.setReadTimeout(5000)
+    get.doOutput = true
+    println("Request response code: ${get.responseCode}")
     def response = get.getInputStream().getText()
-    println("Test request to http://localhost:8080/users returned: $response")
+    println("Test request to $TEST_WS_URL returned: $response")
     if (!response || response.isEmpty())
-        throw new RuntimeException('Test request to http://localhost:8080/users has returned nothing!')
+        throw new RuntimeException("Test request to $TEST_WS_URL has returned nothing!")
 }
 
-def runPostmanTest = { File collection, File output, File errors ->
+def runPostmanTest = { File collection, File output, File errors, String jsonResults ->
     println "Running postman collection ${collection.name}"
-    def args = ['cmd', '/c', 'newman', 'run', collection.absolutePath, '-k', '-e', POSTMAN_ENV_FILE]
+    def args = ['cmd', '/c', 'newman', 'run', collection.absolutePath, '-k', '-e', POSTMAN_ENV_FILE,
+                '-r', 'cli,json', '--reporter-json-export', jsonResults, '--reporter-cli-no-banner',
+                '--reporter-cli-show-timestamps']
     def builder = new ProcessBuilder(args)
     builder.redirectOutput(output)
     builder.redirectError(errors)
     def process = builder.start()
     process.waitFor()
+}
+
+def evaluateTests = { File postmanResults, boolean bonusTests ->
+    TestsRun run = new TestsRun()
+    def report = new JsonSlurper().parse(postmanResults)
+    report.each { test ->
+        test.run.executions.each { exec ->
+            run.totalRun++
+            if (exec.assertions.any { it.error != null }) {
+                run.failure++
+            }
+        }
+    }
+    int max = bonusTests ? MAX_BONUS_POINTS : MAX_POINTS
+    run.calcSuccess()
+    run.calcPoints(max.doubleValue())
+    return run
+}
+
+def buildSummaryFile = { Evaluation eval, File project ->
+    def summaryFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'summary.xml')
+    summaryFile.text = XmlUtil.serialize(eval.toXml())
 }
 
 def testStudent = { File project ->
@@ -397,12 +443,18 @@ def testStudent = { File project ->
     File newmanErrors = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_ERRORS)
     File bonusNewmanOutput = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'bonus-' + NEWMAN_OUTPUT)
     File bonusNewmanErrors = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'bonus-' + NEWMAN_ERRORS)
+    File newmanJsonFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_RESULTS)
+    File serverOutput = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + WS_OUTPUT)
+    File serverError = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + WS_ERROR)
     mvnOutFile.text = ''
     mvnErrFile.text = ''
     newmanOutput.text = ''
     newmanErrors.text = ''
     bonusNewmanOutput.text = ''
     bonusNewmanErrors.text = ''
+    newmanJsonFile.text = '['
+    serverOutput.text = ''
+    serverError.text = ''
 
     try {
         println "Editing pom.xml"
@@ -424,59 +476,71 @@ def testStudent = { File project ->
         buildProject(project, mvnOutFile, mvnErrFile)
 
         println "Starting project's web server"
-        webServer = runProject(project)
-        println "PID of project's web server: ${webServer.pid()}"
+        webServer = runProject(project, serverOutput, serverError)
 
-        println "Test if webserver is running"
-        testWebServerReadiness()
+//        println "Test if webserver is running"
+//        testWebServerReadiness()
 
         println "Required Tests Run"
         File tmpOutput = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-output.txt')
         File tmpError = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-error.txt')
-        new File(TEST_DIR).listFiles().each {
+        File tmpJson = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-report.json')
+        if (!webServer.isAlive())
+            throw new RuntimeException('Web server is not alive to test')
+        def testDir = new File(TEST_DIR).listFiles()
+        def testDirSize = testDir.length
+        testDir.eachWithIndex { file, index ->
+            if (!file.name.endsWith('json')) return
+            tmpOutput.text = ''
+            tmpError.text = ''
+            tmpJson.text = ''
+            runPostmanTest(file, tmpOutput, tmpError, tmpJson.absolutePath)
+            newmanOutput << tmpOutput.text
+            newmanOutput << '\n-----------------------\n\n'
+            if (!tmpError.text.isEmpty()) {
+                newmanErrors << tmpError.text
+                newmanErrors << '\n-----------------------\n\n'
+            }
+            if (!tmpJson.text.isEmpty()) {
+                newmanJsonFile << tmpJson.text
+                if ((index + 1) != testDirSize) {
+                    newmanJsonFile << ','
+                }
+            }
+        }
+        newmanJsonFile << ']'
+
+        student.required = evaluateTests(newmanJsonFile, false)
+        println "Required tests result: ${student.required}"
+
+        // TODO group endpoints tests
+
+        println "Bonus Tests Run"
+        if (!webServer.isAlive())
+            throw new RuntimeException('Web server is not alive to test')
+        new File(TEST_BONUS_DIR).listFiles().each {
             if (!it.name.endsWith('json')) return
             tmpOutput.text = ''
             tmpError.text = ''
-            runPostmanTest(it, tmpOutput, tmpError)
-            newmanOutput.text << '\n-----------------------\n\n'
-            newmanOutput.text << tmpOutput.text
-            newmanErrors.text << '\n-----------------------\n\n'
-            newmanErrors.text << tmpError.text
+            runPostmanTest(it, tmpOutput, tmpError, tmpJson.absolutePath)
+            bonusNewmanOutput << tmpOutput.text
+            bonusNewmanOutput << '\n-----------------------\n\n'
+            if (!tmpError.text.isEmpty()) {
+                bonusNewmanErrors << tmpError.text
+                bonusNewmanErrors << '\n-----------------------\n\n'
+            }
         }
 
-//        student.required = runTestProcedure(project, outFile, errFile, surefireXml, surefireTxt, {
-//            def target = new File(project.absolutePath + TARGET_TEST_DIR)
-//            removeFrom(target)
-//            copyDir(new File(TEST_PROJECT + SOURCE_TEST_DIR), target)
-//            copyDir(new File(TEST_PROJECT + SOURCE_TEST_DIR + File.separator + "tests"),
-//                    new File(project.absolutePath + TARGET_TEST_DIR + File.separator + "tests"))
-//            copyDir(new File(TEST_PROJECT + SOURCE_TEST_DIR + File.separator + "group" + STUDENT_GROUP),
-//                    new File(project.absolutePath + TARGET_TEST_DIR + File.separator + "group" + STUDENT_GROUP))
-//        })
-        println "Bonus Tests Run"
-//        student.bonus = runTestProcedure(project, bonusOutFile, bonusErrFile, bonusSurefireXml, bonusSurefireTxt, {
-//            def target = new File(project.absolutePath + TARGET_TEST_DIR)
-//            removeFrom(target)
-//            copyDir(new File(TEST_PROJECT + SOURCE_TEST_DIR), target)
-//            copyDir(new File(TEST_PROJECT + SOURCE_TEST_DIR + File.separator + "bonus"),
-//                    new File(project.absolutePath + TARGET_TEST_DIR + File.separator + "bonus"))
-//        })
-
-        println "Stopping project's web server"
-        webServer.destroy()
-        webServer.waitForOrKill(1000)
+        stopServer(webServer)
 
         println "Finalizing results"
-//        student.calcTotalPoints(MAX_POINTS, MAX_BONUS_POINTS)
-//        TestsRun totalTests = student.getTotalTestsRun()
-//        println "Results: Run: ${totalTests.totalRun}, Success: ${totalTests.success}, Failure: ${totalTests.failure}, Error: ${totalTests.error}, Skip: ${totalTests.skip}, Points: ${totalTests.points}"
+        student.calcTotalPoints(MAX_POINTS, MAX_BONUS_POINTS)
+        TestsRun totalTests = student.getTotalTestsRun()
+        println "Results: Run: ${totalTests.totalRun}, Success: ${totalTests.success}, Failure: ${totalTests.failure}, Skip: ${totalTests.skip}, Points: ${totalTests.points}"
     } catch (Exception ex) {
         if (webServer) {
-            println "Stopping project's web server"
-            webServer.destroy()
-            webServer.waitForOrKill(1000)
+            stopServer(webServer)
         }
-
         ex.printStackTrace()
         mvnErrFile << "\n"
         mvnErrFile << ex.message
@@ -490,13 +554,11 @@ def testStudent = { File project ->
             student.notes += 'Maven Tests failed'
     }
     student.testDuration = Duration.between(startOfTest, LocalDateTime.now())
-//    buildSummaryFile(student, project)
+    buildSummaryFile(student, project)
     println "Test took ${student.testDuration.toString()}"
     println "-----------------------------\n"
-    if (webServer && webServer.isAlive()) {
-        println "Stopping project's web server"
-        webServer.destroy()
-        webServer.waitForOrKill(1000)
+    if (webServer) {
+        stopServer(webServer)
     }
     return student
 }
