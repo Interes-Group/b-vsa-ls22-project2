@@ -32,8 +32,8 @@ String STUDENT_GROUP = "a"
 String FEEDBACK_DIR = "feedback"
 def DB = [url : "jdbc:mysql://localhost:3306/VSA_PR2?useUnicode=true&characterEncoding=UTF-8",
           user: 'vsa', password: 'vsa', driver: 'com.mysql.jdbc.Driver']
-def CSV_HEADER = ['AISID', 'Name', 'Email', 'GitHub', 'Tests Run', 'Succeeded', 'Failures', 'Errors', 'Skipped', 'Points',
-                  'Bonus Tests Run', 'Bonus Succeeded', 'Bonus Failures', 'Bonus Errors', 'Bonus Skipped', 'Bonus Points', 'Total Points', 'Notes']
+def CSV_HEADER = ['Group', 'AISID', 'Name', 'Email', 'GitHub', 'Tests Run', 'Succeeded', 'Failures', 'Skipped', 'Points',
+                  'Bonus Tests Run', 'Bonus Succeeded', 'Bonus Failures', 'Bonus Skipped', 'Bonus Points', 'Total Points', 'Notes']
 String CSV_DELIMITER = ';'
 String MAVEN_OUTPUT = 'maven-output.txt'
 String MAVEN_ERRORS = 'maven-error-output.txt'
@@ -57,16 +57,17 @@ def confirm = JOptionPane.&showConfirmDialog
 class Student {
     String aisId
     String name
-    String repo
+    String group
     String email
 
     @Override
     String toString(String delimiter = ';') {
-        return String.join(delimiter, aisId, name, email, repo)
+        return String.join(delimiter, group, aisId, name, email)
     }
 
     Node toXml() {
         return new NodeBuilder().student {
+            'group'(group)
             'aisId'(aisId)
             'name'(name)
             'email'(email)
@@ -428,10 +429,10 @@ def buildSummaryFile = { Evaluation eval, File project ->
     summaryFile.text = XmlUtil.serialize(eval.toXml())
 }
 
-def testStudent = { File project ->
+def testStudent = { File project, String group, boolean controlConnection ->
     if (!project.isDirectory()) return null
     LocalDateTime startOfTest = LocalDateTime.now()
-    println "Starting evaluation of student ${project.getName()}"
+    println "Starting evaluation of student ${project.getName()} from group $group"
     Evaluation student = new Evaluation()
     student.github = project.getName()
     Process webServer = null
@@ -441,18 +442,20 @@ def testStudent = { File project ->
     File mvnErrFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + MAVEN_ERRORS)
     File newmanOutput = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_OUTPUT)
     File newmanErrors = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_ERRORS)
+    File newmanJsonFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_RESULTS)
     File bonusNewmanOutput = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'bonus-' + NEWMAN_OUTPUT)
     File bonusNewmanErrors = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'bonus-' + NEWMAN_ERRORS)
-    File newmanJsonFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + NEWMAN_RESULTS)
+    File bonusNewmanJsonFile = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + 'bonus-' + NEWMAN_RESULTS)
     File serverOutput = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + WS_OUTPUT)
     File serverError = new File(project.absolutePath + File.separator + FEEDBACK_DIR + File.separator + WS_ERROR)
     mvnOutFile.text = ''
     mvnErrFile.text = ''
     newmanOutput.text = ''
     newmanErrors.text = ''
+    newmanJsonFile.text = '['
     bonusNewmanOutput.text = ''
     bonusNewmanErrors.text = ''
-    newmanJsonFile.text = '['
+    bonusNewmanJsonFile.text = '['
     serverOutput.text = ''
     serverError.text = ''
 
@@ -464,6 +467,7 @@ def testStudent = { File project ->
             studentId = new Student('name': project.getName())
         }
         student.student = studentId
+        student.student.group = group
         println "\t Detected student credentials: ${student.student}"
 
         println "Editing persistence.xml"
@@ -478,8 +482,10 @@ def testStudent = { File project ->
         println "Starting project's web server"
         webServer = runProject(project, serverOutput, serverError)
 
-//        println "Test if webserver is running"
-//        testWebServerReadiness()
+        if (controlConnection) {
+            println "Testing if webserver is running correctly"
+            testWebServerReadiness()
+        }
 
         println "Required Tests Run"
         File tmpOutput = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-output.txt')
@@ -487,9 +493,8 @@ def testStudent = { File project ->
         File tmpJson = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-report.json')
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
-        def testDir = new File(TEST_DIR).listFiles()
-        def testDirSize = testDir.length
-        testDir.eachWithIndex { file, index ->
+        def testDir = new File(TEST_DIR + File.separator + 'common').listFiles()
+        testDir.each { file ->
             if (!file.name.endsWith('json')) return
             tmpOutput.text = ''
             tmpError.text = ''
@@ -503,33 +508,65 @@ def testStudent = { File project ->
             }
             if (!tmpJson.text.isEmpty()) {
                 newmanJsonFile << tmpJson.text
-                if ((index + 1) != testDirSize) {
+                newmanJsonFile << ','
+            }
+        }
+        println "Running tests for group $group"
+        def groupTestDir = new File(TEST_DIR + File.separator + group).listFiles()
+        def groupTestDirSize = groupTestDir.length
+        groupTestDir.eachWithIndex { file, index ->
+            if (!file.name.endsWith('json')) return
+            tmpOutput.text = ''
+            tmpError.text = ''
+            tmpJson.text = ''
+            runPostmanTest(file, tmpOutput, tmpError, tmpJson.absolutePath)
+            newmanOutput << tmpOutput.text
+            newmanOutput << '\n-----------------------\n\n'
+            if (!tmpError.text.isEmpty()) {
+                newmanErrors << tmpError.text
+                newmanErrors << '\n-----------------------\n\n'
+            }
+            if (!tmpJson.text.isEmpty()) {
+                newmanJsonFile << tmpJson.text
+                if ((index + 1) != groupTestDirSize) {
                     newmanJsonFile << ','
                 }
             }
         }
         newmanJsonFile << ']'
 
+        println "Evaluating required tests"
         student.required = evaluateTests(newmanJsonFile, false)
         println "Required tests result: ${student.required}"
-
-        // TODO group endpoints tests
 
         println "Bonus Tests Run"
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
-        new File(TEST_BONUS_DIR).listFiles().each {
-            if (!it.name.endsWith('json')) return
+        def bonusTestDir = new File(TEST_BONUS_DIR).listFiles()
+        def bonusTestDirSize = bonusTestDir.length
+        bonusTestDir.eachWithIndex { file, index ->
+            if (!file.name.endsWith('json')) return
             tmpOutput.text = ''
             tmpError.text = ''
-            runPostmanTest(it, tmpOutput, tmpError, tmpJson.absolutePath)
+            tmpJson.text = ''
+            runPostmanTest(file, tmpOutput, tmpError, tmpJson.absolutePath)
             bonusNewmanOutput << tmpOutput.text
             bonusNewmanOutput << '\n-----------------------\n\n'
             if (!tmpError.text.isEmpty()) {
                 bonusNewmanErrors << tmpError.text
                 bonusNewmanErrors << '\n-----------------------\n\n'
             }
+            if (!tmpJson.text.isEmpty()) {
+                bonusNewmanJsonFile << tmpJson.text
+                if ((index + 1) != bonusTestDirSize) {
+                    bonusNewmanJsonFile << ','
+                }
+            }
         }
+        bonusNewmanJsonFile << ']'
+        println "Evaluating bonus tests"
+        student.bonus = evaluateTests(bonusNewmanJsonFile, false)
+        println "Bonus tests result: ${student.bonus}"
 
         stopServer(webServer)
 
@@ -555,11 +592,12 @@ def testStudent = { File project ->
     }
     student.testDuration = Duration.between(startOfTest, LocalDateTime.now())
     buildSummaryFile(student, project)
-    println "Test took ${student.testDuration.toString()}"
-    println "-----------------------------\n"
     if (webServer) {
         stopServer(webServer)
     }
+    Thread.sleep(500)
+    println "Test took ${student.testDuration.toString()}"
+    println "-----------------------------\n"
     return student
 }
 
@@ -572,25 +610,32 @@ if (confirmation == JOptionPane.YES_OPTION) {
     println "Evaluating students projects"
     println "\n"
     File[] files = new File("$CWD${File.separator}projects").listFiles()
-    for (File project : files) {
-        Evaluation e = testStudent(project)
-        results << e
+    for (File groupFolder : files) {
+        if (!groupFolder.isDirectory()) return
+        File[] projectFiles = groupFolder.listFiles()
+        for (File project : projectFiles) {
+            Evaluation e = testStudent(project, groupFolder.name.toUpperCase(), false)
+            results << e
+        }
     }
 
-//    def resultFile = new File(CWD + File.separator + "results-${STUDENT_GROUP}.csv")
-//    resultFile.text = String.join(CSV_DELIMITER, CSV_HEADER) + '\n'
-//    results.each {
-//        resultFile.append(it.toString(CSV_DELIMITER))
-//        resultFile.append("\n")
-//    }
+    def resultFile = new File(CWD + File.separator + "results.csv")
+    resultFile.text = String.join(CSV_DELIMITER, CSV_HEADER) + '\n'
+    results.each {
+        resultFile.append(it.toString(CSV_DELIMITER))
+        resultFile.append("\n")
+    }
 } else {
     def projectDir = input "Enter students folder to test"
     if (!projectDir || projectDir.isEmpty())
         throw new RuntimeException("No student's folder has been entered")
-    File projectFile = new File(CWD + File.separator + 'projects' + File.separator + projectDir)
+    def studentGroup = input "Enter student's group"
+    if (!projectDir || projectDir.isEmpty())
+        throw new RuntimeException("No student's group has been entered")
+    File projectFile = new File(CWD + File.separator + 'projects' + File.separator + studentGroup.toUpperCase() + File.separator + projectDir)
     if (!projectFile.exists())
         throw new RuntimeException("No student's folder has been found")
-    Evaluation ev = testStudent(projectFile)
+    Evaluation ev = testStudent(projectFile, studentGroup.toUpperCase(), false)
     println ev
 }
 
