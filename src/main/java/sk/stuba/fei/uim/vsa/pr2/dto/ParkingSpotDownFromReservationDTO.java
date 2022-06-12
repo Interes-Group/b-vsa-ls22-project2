@@ -21,13 +21,13 @@ public class ParkingSpotDownFromReservationDTO {
     public String carParkFloor;
     public Long carPark;
     public Boolean free;
-    
+    public String identifier;
     public List<IdDTO> reservations;
     
     public ParkingSpotDownFromReservationDTO(ParkingSpot parkingSpot)
     {
         this.id = parkingSpot.getId();
-        
+        this.identifier = parkingSpot.getSpotIdentifier();
         CarParkService service = new CarParkService();
         this.free =  service.isParkingSpotAvailable(parkingSpot);
         
