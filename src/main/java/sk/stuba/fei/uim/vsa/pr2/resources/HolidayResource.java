@@ -21,6 +21,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +49,7 @@ public class HolidayResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response index(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @QueryParam("date") String date) throws JsonProcessingException
     {
-        List<Object> holidayObjects = null;
+        List<Object> holidayObjects = new ArrayList<>();
         if (date != null) {
             try {
                 Date d=new SimpleDateFormat("yyyy-MM-dd").parse(date);

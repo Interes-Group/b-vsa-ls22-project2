@@ -60,6 +60,9 @@ public class CarResource {
                 Car car = (Car) carObject;
                 if (car.getUser() == null || ! car.getUser().getId().equals(userId)) {
                     return Response.ok(this.jsonMapper.writeValueAsString(resultList)).build();
+                } else {
+                    resultList.add(new CarDTO(car));
+                    return Response.ok(this.jsonMapper.writeValueAsString(resultList)).build();
                 }
             } else {
                 Object userObject = this.carParkService.getUser(userId);
@@ -77,6 +80,13 @@ public class CarResource {
                     .collect(Collectors.toList())
                 )).build();
             }
+        } else if (vrp != null) {
+            Object carObject = this.carParkService.getCar(vrp);
+            if (carObject == null) {
+                return Response.ok(this.jsonMapper.writeValueAsString(resultList)).build();
+            }
+            resultList.add(new CarDTO((Car) carObject));
+            return Response.ok(this.jsonMapper.writeValueAsString(resultList)).build();
         }
         
         List<Car> cars = this.carParkService.getAllCars();
