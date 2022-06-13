@@ -342,6 +342,35 @@ def clearDatabase = {
     sql.close()
 }
 
+def clearTables = {
+    def sql = Sql.newInstance(DB.url, DB.user, DB.password, DB.driver)
+    if (!sql)
+        throw new RuntimeException("Cannot connect to the MySQL DB")
+    def tables = []
+    sql.query('SELECT table_name FROM information_schema.tables WHERE table_schema = (SELECT DATABASE())', {
+        while (it.next()) {
+            String table = it.getString("table_name");
+            if (!Objects.equals(table, "SEQUENCE")) {
+                tables.add(table);
+            }
+        }
+    })
+    def email = "EMAIL"
+    sql.query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'USER'", {
+        while (it.next()) {
+            String columnName = it.getString("COLUMN_NAME")
+            if (columnName.contains('email') || columnName.contains('EMAIL')) {
+                email = columnName
+            }
+        }
+    })
+    sql.execute 'SET FOREIGN_KEY_CHECKS = 0'
+    tables.each { sql.execute('TRUNCATE TABLE ' + it) }
+    sql.executeInsert("INSERT INTO USER (ID, " + email + ") VALUES (1, 'admin@vsa.sk')")
+    sql.execute 'SET FOREIGN_KEY_CHECKS = 1'
+    sql.close()
+}
+
 def buildProject = { File project, File output, File errors ->
     def args = ['cmd', '/c', 'mvn', '-DskipTests=true', 'clean', 'compile', 'package']
     def builder = new ProcessBuilder(args)
@@ -510,6 +539,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
                 newmanJsonFile << tmpJson.text
                 newmanJsonFile << ','
             }
+            clearTables()
         }
         println "Running tests for group $group"
         def groupTestDir = new File(TEST_DIR + File.separator + group).listFiles()
@@ -532,6 +562,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
                     newmanJsonFile << ','
                 }
             }
+            clearTables()
         }
         newmanJsonFile << ']'
 
@@ -562,6 +593,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
                     bonusNewmanJsonFile << ','
                 }
             }
+            clearTables()
         }
         bonusNewmanJsonFile << ']'
         println "Evaluating bonus tests"
@@ -580,8 +612,8 @@ def testStudent = { File project, String group, boolean controlConnection ->
         }
         ex.printStackTrace()
         mvnErrFile << "\n"
-        mvnErrFile << ex.message
-        student.notes += ex.message
+        mvnErrFile << ex.getClass().name + ': ' + ex.message
+        student.notes += ex.getClass().name + ': ' + ex.message
     }
     if (mvnOutFile.text.contains('BUILD FAILURE')) {
         if (!student.notes.isEmpty()) student.notes += ';'
@@ -614,7 +646,7 @@ if (confirmation == JOptionPane.YES_OPTION) {
         if (!groupFolder.isDirectory()) return
         File[] projectFiles = groupFolder.listFiles()
         for (File project : projectFiles) {
-            Evaluation e = testStudent(project, groupFolder.name.toUpperCase(), false)
+            Evaluation e = testStudent(project, groupFolder.name.toUpperCase(), true)
             results << e
         }
     }
