@@ -273,7 +273,7 @@ public class ReservationResource {
             
             Object reservationModifiedObject = this.carParkService.updateReservation(reservation);
             
-            return Response.status(Response.Status.CREATED).entity(new ReservationDTO((Reservation) reservationModifiedObject)).build();
+            return Response.status(Response.Status.OK).entity(new ReservationDTO((Reservation) reservationModifiedObject)).build();
             
             
         } catch(JsonProcessingException e) {
