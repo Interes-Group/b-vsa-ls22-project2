@@ -1,0 +1,633 @@
+{
+	"info": {
+		"_postman_id": "59c8fbee-8682-40ca-b669-06df144a5818",
+		"name": "createCarAndType",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3466389"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createUser', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.firstName).to.eql(pm.variables.get('userFirstName'));\r",
+							"    pm.expect(jsonResponse.lastName).to.eql(pm.variables.get('userLastName'));\r",
+							"    pm.expect(jsonResponse.email).to.eql(pm.variables.get('userEmail'));\r",
+							"    pm.variables.set('userId', jsonResponse.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -92119638,\n  \"firstName\": \"{{userFirstName}}\",\n  \"lastName\": \"{{userLastName}}\",\n  \"email\": \"{{userEmail}}\",\n  \"cars\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "User created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -72264117,\n  \"firstName\": \"irure nulla\",\n  \"lastName\": \"ut consequat Duis qui cillum\",\n  \"email\": \"et ut pariatur\",\n  \"cars\": [\n    {\n      \"id\": -81747328,\n      \"brand\": \"est anim laborum labore\",\n      \"model\": \"mollit officia ut aliqua\",\n      \"vrp\": \"c\",\n      \"owner\": {\n        \"id\": 14826273\n      },\n      \"colour\": \"pariatur anim occaecat\",\n      \"type\": {\n        \"id\": 99526371,\n        \"name\": \"minim Lorem\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -10596357,\n          \"start\": \"sit anim tempor\",\n          \"end\": \"dolore dolore aute eiusmod dolor\",\n          \"prices\": -35079603.505345605,\n          \"car\": {\n            \"id\": 75018569\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 70010001,\n          \"start\": \"Excepteur nisi tempor anim\",\n          \"end\": \"in Excepteur ex velit\",\n          \"prices\": 99265450.71166006,\n          \"car\": {\n            \"id\": -9932311\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": 23887955,\n      \"brand\": \"aute fugiat\",\n      \"model\": \"nostrud\",\n      \"vrp\": \"ut laborum et ex non\",\n      \"owner\": {\n        \"id\": 29731614\n      },\n      \"colour\": \"cillum adipisicing non irure aliquip\",\n      \"type\": {\n        \"id\": 41486313,\n        \"name\": \"Duis in\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -61009277,\n          \"start\": \"Duis enim ea consectetur\",\n          \"end\": \"sit veniam\",\n          \"prices\": -77155595.16935691,\n          \"car\": {\n            \"id\": -91996539\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": -20479316,\n          \"start\": \"qui nisi\",\n          \"end\": \"in\",\n          \"prices\": 48064079.05059403,\n          \"car\": {\n            \"id\": 62994433\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -72264117,\n  \"firstName\": \"irure nulla\",\n  \"lastName\": \"ut consequat Duis qui cillum\",\n  \"email\": \"et ut pariatur\",\n  \"cars\": [\n    {\n      \"id\": -81747328,\n      \"brand\": \"est anim laborum labore\",\n      \"model\": \"mollit officia ut aliqua\",\n      \"vrp\": \"c\",\n      \"owner\": {\n        \"id\": 14826273\n      },\n      \"colour\": \"pariatur anim occaecat\",\n      \"type\": {\n        \"id\": 99526371,\n        \"name\": \"minim Lorem\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -10596357,\n          \"start\": \"sit anim tempor\",\n          \"end\": \"dolore dolore aute eiusmod dolor\",\n          \"prices\": -35079603.505345605,\n          \"car\": {\n            \"id\": 75018569\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 70010001,\n          \"start\": \"Excepteur nisi tempor anim\",\n          \"end\": \"in Excepteur ex velit\",\n          \"prices\": 99265450.71166006,\n          \"car\": {\n            \"id\": -9932311\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": 23887955,\n      \"brand\": \"aute fugiat\",\n      \"model\": \"nostrud\",\n      \"vrp\": \"ut laborum et ex non\",\n      \"owner\": {\n        \"id\": 29731614\n      },\n      \"colour\": \"cillum adipisicing non irure aliquip\",\n      \"type\": {\n        \"id\": 41486313,\n        \"name\": \"Duis in\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -61009277,\n          \"start\": \"Duis enim ea consectetur\",\n          \"end\": \"sit veniam\",\n          \"prices\": -77155595.16935691,\n          \"car\": {\n            \"id\": -91996539\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": -20479316,\n          \"start\": \"qui nisi\",\n          \"end\": \"in\",\n          \"prices\": 48064079.05059403,\n          \"car\": {\n            \"id\": 62994433\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -72264117,\n  \"firstName\": \"irure nulla\",\n  \"lastName\": \"ut consequat Duis qui cillum\",\n  \"email\": \"et ut pariatur\",\n  \"cars\": [\n    {\n      \"id\": -81747328,\n      \"brand\": \"est anim laborum labore\",\n      \"model\": \"mollit officia ut aliqua\",\n      \"vrp\": \"c\",\n      \"owner\": {\n        \"id\": 14826273\n      },\n      \"colour\": \"pariatur anim occaecat\",\n      \"type\": {\n        \"id\": 99526371,\n        \"name\": \"minim Lorem\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -10596357,\n          \"start\": \"sit anim tempor\",\n          \"end\": \"dolore dolore aute eiusmod dolor\",\n          \"prices\": -35079603.505345605,\n          \"car\": {\n            \"id\": 75018569\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 70010001,\n          \"start\": \"Excepteur nisi tempor anim\",\n          \"end\": \"in Excepteur ex velit\",\n          \"prices\": 99265450.71166006,\n          \"car\": {\n            \"id\": -9932311\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": 23887955,\n      \"brand\": \"aute fugiat\",\n      \"model\": \"nostrud\",\n      \"vrp\": \"ut laborum et ex non\",\n      \"owner\": {\n        \"id\": 29731614\n      },\n      \"colour\": \"cillum adipisicing non irure aliquip\",\n      \"type\": {\n        \"id\": 41486313,\n        \"name\": \"Duis in\"\n      },\n      \"reservations\": [\n        {\n          \"id\": -61009277,\n          \"start\": \"Duis enim ea consectetur\",\n          \"end\": \"sit veniam\",\n          \"prices\": -77155595.16935691,\n          \"car\": {\n            \"id\": -91996539\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": -20479316,\n          \"start\": \"qui nisi\",\n          \"end\": \"in\",\n          \"prices\": 48064079.05059403,\n          \"car\": {\n            \"id\": 62994433\n          },\n          \"spot\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identifier\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carParkFloor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carPark\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"free\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createCar', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.brand).to.eql(pm.variables.get('carBrand'));\r",
+							"    pm.expect(jsonResponse.model).to.eql(pm.variables.get('carModel'));\r",
+							"    pm.expect(jsonResponse.vrp).to.eql(pm.variables.get('carVrp'));\r",
+							"    pm.expect(jsonResponse.colour).to.eql(pm.variables.get('carColor'));\r",
+							"    pm.variables.set('carId', jsonResponse.id);\r",
+							"    const owner = jsonResponse.owner;\r",
+							"    if (typeof owner === 'number') {\r",
+							"        pm.expect(owner).to.be.eql(pm.variables.get('userId'));\r",
+							"    } else if (typeof owner === 'object') {\r",
+							"        pm.expect(owner.id).to.be.eql(pm.variables.get('userId'));\r",
+							"        if (owner.firstName != undefined) {\r",
+							"            pm.expect(owner.firstName).to.be.eql(pm.variables.get('userFirstName'));\r",
+							"        }\r",
+							"        if (owner.lastName != undefined) {\r",
+							"            pm.expect(owner.lastName).to.be.eql(pm.variables.get('userLastName'));\r",
+							"        }\r",
+							"        if (owner.email != undefined) {\r",
+							"            pm.expect(owner.email).to.be.eql(pm.variables.get('userEmail'));\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    const type = jsonResponse.type;\r",
+							"    if (typeof type == 'number') {\r",
+							"        pm.variables.set('carTypeId', type);\r",
+							"    } else {\r",
+							"        pm.expect(type.id).to.be.a('number');\r",
+							"        pm.variables.set('carTypeId', type.id);\r",
+							"    }\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -47280362,\n  \"brand\": \"{{carBrand}}\",\n  \"model\": \"{{carModel}}\",\n  \"vrp\": \"{{carVrp}}\",\n  \"owner\": {\n    \"id\": {{userId}},\n    \"firstName\": \"{{userFirstName}}\",\n    \"lastName\": \"{{userLastName}}\",\n    \"email\": \"{{userEmail}}\",\n    \"cars\": []\n  },\n  \"colour\": \"{{carColor}}\",\n  \"reservations\": [],\n  \"type\": {\n      \"id\": 78792,\n      \"name\": \"{{carTypeName}}\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cars",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -47280362,\n  \"brand\": \"proident consectetur dolor deserunt\",\n  \"model\": \"dolor consectetur et sed\",\n  \"vrp\": \"nulla ullamco\",\n  \"owner\": {\n    \"id\": -9071566,\n    \"firstName\": \"nulla\",\n    \"lastName\": \"voluptate id n\",\n    \"email\": \"non culpa\",\n    \"cars\": [\n      {\n        \"id\": 67536605\n      },\n      {\n        \"id\": -32548525\n      }\n    ]\n  },\n  \"colour\": \"enim officia\",\n  \"type\": {\n    \"id\": 68623669,\n    \"name\": \"ut\"\n  },\n  \"reservations\": [\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -47280362,\n  \"brand\": \"proident consectetur dolor deserunt\",\n  \"model\": \"dolor consectetur et sed\",\n  \"vrp\": \"nulla ullamco\",\n  \"owner\": {\n    \"id\": -9071566,\n    \"firstName\": \"nulla\",\n    \"lastName\": \"voluptate id n\",\n    \"email\": \"non culpa\",\n    \"cars\": [\n      {\n        \"id\": 67536605\n      },\n      {\n        \"id\": -32548525\n      }\n    ]\n  },\n  \"colour\": \"enim officia\",\n  \"type\": {\n    \"id\": 68623669,\n    \"name\": \"ut\"\n  },\n  \"reservations\": [\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -47280362,\n  \"brand\": \"proident consectetur dolor deserunt\",\n  \"model\": \"dolor consectetur et sed\",\n  \"vrp\": \"nulla ullamco\",\n  \"owner\": {\n    \"id\": -9071566,\n    \"firstName\": \"nulla\",\n    \"lastName\": \"voluptate id n\",\n    \"email\": \"non culpa\",\n    \"cars\": [\n      {\n        \"id\": 67536605\n      },\n      {\n        \"id\": -32548525\n      }\n    ]\n  },\n  \"colour\": \"enim officia\",\n  \"type\": {\n    \"id\": 68623669,\n    \"name\": \"ut\"\n  },\n  \"reservations\": [\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get car with id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('getCar', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.id).to.be.eql(pm.variables.get('carId'));\r",
+							"    pm.expect(jsonResponse.brand).to.eql(pm.variables.get('carBrand'));\r",
+							"    pm.expect(jsonResponse.model).to.eql(pm.variables.get('carModel'));\r",
+							"    pm.expect(jsonResponse.vrp).to.eql(pm.variables.get('carVrp'));\r",
+							"    pm.expect(jsonResponse.colour).to.eql(pm.variables.get('carColor'));\r",
+							"    \r",
+							"    const owner = jsonResponse.owner;\r",
+							"    if (typeof owner === 'number') {\r",
+							"        pm.expect(owner).to.be.eql(pm.variables.get('userId'));\r",
+							"    } else if (typeof owner === 'object') {\r",
+							"        pm.expect(owner.id).to.be.eql(pm.variables.get('userId'));\r",
+							"        if (owner.firstName != undefined) {\r",
+							"            pm.expect(owner.firstName).to.be.eql(pm.variables.get('userFirstName'));\r",
+							"        }\r",
+							"        if (owner.lastName != undefined) {\r",
+							"            pm.expect(owner.lastName).to.be.eql(pm.variables.get('userLastName'));\r",
+							"        }\r",
+							"        if (owner.email != undefined) {\r",
+							"            pm.expect(owner.email).to.be.eql(pm.variables.get('userEmail'));\r",
+							"        }\r",
+							"    }\r",
+							"    \r",
+							"    const type = jsonResponse.type;\r",
+							"    if (typeof type == 'number') {\r",
+							"        pm.expect(type).to.eql(pm.variables.get('carTypeId'));\r",
+							"    } else {\r",
+							"        pm.expect(type.id).to.be.a('number');\r",
+							"        pm.expect(type.id).to.eql(pm.variables.get('carTypeId'));\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cars/{{carId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cars",
+						"{{carId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car exists and is returned",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "76401956",
+									"description": "(Required) Id of car"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 29388343,\n  \"brand\": \"elit et\",\n  \"model\": \"in do\",\n  \"vrp\": \"aliquip do\",\n  \"owner\": {\n    \"id\": 23803240,\n    \"firstName\": \"labore amet id\",\n    \"lastName\": \"minim voluptate eiusmod\",\n    \"email\": \"Lorem\",\n    \"cars\": [\n      {\n        \"id\": 40535577\n      },\n      {\n        \"id\": -59550490\n      }\n    ]\n  },\n  \"colour\": \"in elit ullamco\",\n  \"type\": {\n    \"id\": 33425627,\n    \"name\": \"dolore voluptate cillum minim incididunt\"\n  },\n  \"reservations\": [\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/CReservationDownFromCar not found in the OpenAPI spec\"\n    }\n  ]\n}"
+				},
+				{
+					"name": "Car with given id does not exist",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "76401956",
+									"description": "(Required) Id of car"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get car type Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('getCarType', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.eql(pm.variables.get('carTypeId'));\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('carTypeName'));\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cartypes/{{carTypeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cartypes",
+						"{{carTypeId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car type found and returned",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cartypes/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-14935329",
+									"description": "(Required) Id of the car type"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 48464707,\n  \"name\": \"quis deserunt ullamco exer\"\n}"
+				},
+				{
+					"name": "Car type does not exist",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cartypes/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-14935329",
+									"description": "(Required) Id of the car type"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{auth_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{auth_name}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080/api",
+			"type": "string"
+		}
+	]
+}

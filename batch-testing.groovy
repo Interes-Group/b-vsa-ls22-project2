@@ -22,6 +22,21 @@ import java.time.LocalDateTime
  * aggregate tests result
  * evaluate tests result
  * push feedback to student's repo
+ *
+ * This script relays on folder structure:
+ * b-vsa-ls22-project2 (this project)
+ *  |- postman-tests
+ *    |- bonus (test collections for bonus points)
+ *       required
+ *          |- A (test collections for group A)
+ *             B (test collections for group B)
+ *             C (test collections for group C)
+ *             common (test collections for all groups)
+ *       VSA_env.postman_environment.json
+ * projects
+ *  |- A (students project of group A)
+ *     B (students project of group B)
+ *     C (students project of group C)
  */
 
 // CONSTANTS
@@ -44,9 +59,9 @@ String WS_OUTPUT = 'web-server-output.txt'
 String WS_ERROR = 'web-server-error.txt'
 Integer MAX_POINTS = 20
 Integer MAX_BONUS_POINTS = 5
-String POSTMAN_ENV_FILE = new File(CWD + File.separator + 'VSA_env.postman_environment.json').absolutePath
-String TEST_DIR = CWD + File.separator + 'tests' + File.separator + 'required'
-String TEST_BONUS_DIR = CWD + File.separator + 'tests' + File.separator + 'bonus'
+String POSTMAN_ENV_FILE = new File(TEST_PROJECT + File.separator + 'postman-tests' + File.separator + 'VSA_env.postman_environment.json').absolutePath
+String TEST_DIR = TEST_PROJECT + File.separator + 'postman-tests' + File.separator + 'required'
+String TEST_BONUS_DIR = TEST_PROJECT + File.separator + 'postman-tests' + File.separator + 'bonus'
 String TEST_WS_URL = "http://localhost:8080/users"
 
 def input = JOptionPane.&showInputDialog
@@ -356,7 +371,7 @@ def clearTables = {
     })
     def columns = []
     def values = []
-    sql.query("SELECT COLUMN_NAME, ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'USER'", {
+    sql.query("SELECT COLUMN_NAME, ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'USER' AND TABLE_SCHEMA = 'VSA_PR2'", {
         while (it.next()) {
             if (it.getInt('ORDINAL_POSITION') == 1) {
                 columns.clear()
@@ -391,6 +406,7 @@ def clearTables = {
     insertQuery += String.join(',', values)
     insertQuery += ')'
 
+    //insertQuery = "INSERT INTO USER (ID, EMAIL) VALUES (1, 'admin@vsa.sk')"
 
     sql.execute 'SET FOREIGN_KEY_CHECKS = 0'
     tables.each { sql.execute('TRUNCATE TABLE ' + it) }
@@ -550,7 +566,6 @@ def testStudent = { File project, String group, boolean controlConnection ->
         File tmpJson = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-report.json')
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
-        clearTables()
         def testDir = new File(TEST_DIR + File.separator + 'common').listFiles()
         testDir.each { file ->
             if (!file.name.endsWith('json')) return

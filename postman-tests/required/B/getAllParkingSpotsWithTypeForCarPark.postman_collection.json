@@ -1,0 +1,1886 @@
+{
+	"info": {
+		"_postman_id": "0bdfa10c-6ca5-4187-892c-e2f1229e31d1",
+		"name": "getAllParkingSpotsWithTypeForCarPark",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3466389"
+	},
+	"item": [
+		{
+			"name": "Create new car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"createAndSetCarParkId\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.collectionVariables.set(\"carParkId\", jsonResponse.id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 28319418,\n  \"name\": \"{{carParkName}}\",\n  \"address\": \"{{carParkAddress}}\",\n  \"prices\": {{carParkPrice}},\n  \"floors\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Entity created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -40698179,\n  \"name\": \"minim in dolor\",\n  \"address\": \"adipisicing veniam in esse\",\n  \"prices\": -82851900.03314668,\n  \"floors\": [\n    {\n      \"id\": -72824841,\n      \"identifier\": \"officia adipisicing ut pariatur\",\n      \"carPark\": 86374329,\n      \"spots\": [\n        {\n          \"id\": -17937675,\n          \"identifier\": \"in Ut laborum\",\n          \"carParkFloor\": \"do in et reprehenderit\",\n          \"carPark\": -92631673,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": 56936994,\n          \"identifier\": \"aliqu\",\n          \"carParkFloor\": \"Ut id aliqua\",\n          \"carPark\": -47978243,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": -19781285,\n      \"identifier\": \"sit ullamco amet non\",\n      \"carPark\": 60919513,\n      \"spots\": [\n        {\n          \"id\": -52430120,\n          \"identifier\": \"ullamco tempor\",\n          \"carParkFloor\": \"consequat aliquip nisi pariatur\",\n          \"carPark\": 92816724,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": -39188086,\n          \"identifier\": \"Duis voluptate in culpa proident\",\n          \"carParkFloor\": \"occaecat ex officia\",\n          \"carPark\": 18416139,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -40698179,\n  \"name\": \"minim in dolor\",\n  \"address\": \"adipisicing veniam in esse\",\n  \"prices\": -82851900.03314668,\n  \"floors\": [\n    {\n      \"id\": -72824841,\n      \"identifier\": \"officia adipisicing ut pariatur\",\n      \"carPark\": 86374329,\n      \"spots\": [\n        {\n          \"id\": -17937675,\n          \"identifier\": \"in Ut laborum\",\n          \"carParkFloor\": \"do in et reprehenderit\",\n          \"carPark\": -92631673,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": 56936994,\n          \"identifier\": \"aliqu\",\n          \"carParkFloor\": \"Ut id aliqua\",\n          \"carPark\": -47978243,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": -19781285,\n      \"identifier\": \"sit ullamco amet non\",\n      \"carPark\": 60919513,\n      \"spots\": [\n        {\n          \"id\": -52430120,\n          \"identifier\": \"ullamco tempor\",\n          \"carParkFloor\": \"consequat aliquip nisi pariatur\",\n          \"carPark\": 92816724,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": -39188086,\n          \"identifier\": \"Duis voluptate in culpa proident\",\n          \"carParkFloor\": \"occaecat ex officia\",\n          \"carPark\": 18416139,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -40698179,\n  \"name\": \"minim in dolor\",\n  \"address\": \"adipisicing veniam in esse\",\n  \"prices\": -82851900.03314668,\n  \"floors\": [\n    {\n      \"id\": -72824841,\n      \"identifier\": \"officia adipisicing ut pariatur\",\n      \"carPark\": 86374329,\n      \"spots\": [\n        {\n          \"id\": -17937675,\n          \"identifier\": \"in Ut laborum\",\n          \"carParkFloor\": \"do in et reprehenderit\",\n          \"carPark\": -92631673,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": 56936994,\n          \"identifier\": \"aliqu\",\n          \"carParkFloor\": \"Ut id aliqua\",\n          \"carPark\": -47978243,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": -19781285,\n      \"identifier\": \"sit ullamco amet non\",\n      \"carPark\": 60919513,\n      \"spots\": [\n        {\n          \"id\": -52430120,\n          \"identifier\": \"ullamco tempor\",\n          \"carParkFloor\": \"consequat aliquip nisi pariatur\",\n          \"carPark\": 92816724,\n          \"free\": true,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": -39188086,\n          \"identifier\": \"Duis voluptate in culpa proident\",\n          \"carParkFloor\": \"occaecat ex officia\",\n          \"carPark\": 18416139,\n          \"free\": false,\n          \"type\": {\n            \"value\": \"reference CarType not found in the OpenAPI spec\"\n          },\n          \"reservations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create new car park floor for given car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -1331359,\n  \"identifier\": \"{{carParkFloorIdentifier}}\",\n  \"carPark\": {{carParkId}},\n  \"spots\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car park floor created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park does not exist and car park floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create new car park floor for given car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"identifier\": \"{{carParkFloorIdentifier}}\",\n  \"carPark\": {{carParkId}},\n  \"spots\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car park floor created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park does not exist and car park floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create car type Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createCarType', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.name).to.be.a('string');\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('carTypeName'));\r",
+							"    pm.variables.set('carTypeId', jsonResponse.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 2015878,\n  \"name\": \"{{carTypeName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cartypes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cartypes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car type created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cartypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cartypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create car type Copy 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createCarType', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.name).to.be.a('string');\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('carTypeName2'));\r",
+							"    pm.variables.set('carTypeId2', jsonResponse.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 2015878,\n  \"name\": \"{{carTypeName2}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cartypes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cartypes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car type created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cartypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2015878,\n  \"name\": \"velit nulla qui\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cartypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cartypes"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create parking spot for given car park and given car park floor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createParkingSpotWithoutType', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.identifier).to.eql(pm.variables.get('parkingSpotIdentifier'));\r",
+							"    pm.expect(jsonResponse.free).to.be.a('boolean');\r",
+							"    pm.expect(jsonResponse.free).to.eql(true);\r",
+							"    pm.variables.set('parkingSpotId', jsonResponse.id);\r",
+							"    const type = jsonResponse.type;\r",
+							"    if (typeof type == 'number') {\r",
+							"        pm.expect(type).to.eql(pm.variables.get('carTypeId'));\r",
+							"    } else {\r",
+							"        pm.expect(type.id).to.be.a('number');\r",
+							"        pm.expect(type.id).to.eql(pm.variables.get('carTypeId'));\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -64207243,\n  \"identifier\": \"{{parkingSpotIdentifier}}\",\n  \"carParkFloor\": \"{{carParkFloorIdentifier}}\",\n  \"carPark\": {{carParkId}},\n  \"free\": true,\n  \"reservations\": [],\n  \"type\": {\n      \"id\": {{carTypeId}},\n      \"name\": \"{{carTypeName}}\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors/{{carParkFloorIdentifier}}/spots",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors",
+						"{{carParkFloorIdentifier}}",
+						"spots"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Parking spot created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park or car park floor does not exist and parking floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create new car park floor for given car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -1331359,\n  \"identifier\": \"{{carParkFloorIdentifier2}}\",\n  \"carPark\": {{carParkId}},\n  \"spots\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car park floor created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park does not exist and car park floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create new car park floor for given car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"identifier\": \"{{carParkFloorIdentifier2}}\",\n  \"carPark\": {{carParkId}},\n  \"spots\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car park floor created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park does not exist and car park floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": -53288899,\n  \"identifier\": \"fugiat in tempor\",\n  \"carPark\": -46117235,\n  \"spots\": [\n    {\n      \"id\": 96651625,\n      \"identifier\": \"sint in\",\n      \"carParkFloor\": \"aute\",\n      \"carPark\": -89289835,\n      \"free\": true,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 74253000,\n          \"start\": \"et\",\n          \"end\": \"aliqua et\",\n          \"prices\": 54625842.961165994,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 2316053\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 68253778,\n          \"start\": \"dolor veniam\",\n          \"end\": \"\",\n          \"prices\": 87335233.24675807,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 50062823\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"id\": -42104630,\n      \"identifier\": \"anim reprehenderit ex amet\",\n      \"carParkFloor\": \"reprehenderit id\",\n      \"carPark\": -32302261,\n      \"free\": false,\n      \"type\": {\n        \"value\": \"reference CarType not found in the OpenAPI spec\"\n      },\n      \"reservations\": [\n        {\n          \"id\": 14023091,\n          \"start\": \"aliqua consectetur et\",\n          \"end\": \"labore \",\n          \"prices\": 21975843.788420632,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 59203765\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"id\": 13842928,\n          \"start\": \"Lorem deserunt amet ut\",\n          \"end\": \"eiusmod cillum Lorem\",\n          \"prices\": -17763134.561303496,\n          \"car\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"brand\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vrp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"owner\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"colour\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reservations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"spot\": {\n            \"id\": 71293481\n          },\n          \"coupon\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"discount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-97734654",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create parking spot for given car park and given car park floor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createParkingSpotWithoutType', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.identifier).to.eql(pm.variables.get('parkingSpotIdentifier2'));\r",
+							"    pm.expect(jsonResponse.free).to.be.a('boolean');\r",
+							"    pm.expect(jsonResponse.free).to.eql(true);\r",
+							"    pm.variables.set('parkingSpotId2', jsonResponse.id);\r",
+							"    const type = jsonResponse.type;\r",
+							"    if (typeof type == 'number') {\r",
+							"        pm.expect(type).to.eql(pm.variables.get('carTypeId2'));\r",
+							"    } else {\r",
+							"        pm.expect(type.id).to.be.a('number');\r",
+							"        pm.expect(type.id).to.eql(pm.variables.get('carTypeId2'));\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": -64207243,\n  \"identifier\": \"{{parkingSpotIdentifier2}}\",\n  \"carParkFloor\": \"{{carParkFloorIdentifier2}}\",\n  \"carPark\": {{carParkId}},\n  \"free\": true,\n  \"reservations\": [],\n  \"type\": {\n      \"id\": {{carTypeId2}},\n      \"name\": \"{{carTypeName2}}\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/floors/{{carParkFloorIdentifier2}}/spots",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"floors",
+						"{{carParkFloorIdentifier2}}",
+						"spots"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Parking spot created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Car park or car park floor does not exist and parking floor cannot be created for it",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 10019613,\n  \"identifier\": \"fugiat aliqua Duis\",\n  \"carParkFloor\": \"pariatur eu cillum Excepteur\",\n  \"carPark\": -77340219,\n  \"free\": false,\n  \"type\": {\n    \"value\": \"reference CarType not found in the OpenAPI spec\"\n  },\n  \"reservations\": [\n    {\n      \"id\": 33459456,\n      \"start\": \"occaecat ex irure exercitation\",\n      \"end\": \"consequat aute\",\n      \"prices\": 94916635.94635123,\n      \"car\": {\n        \"id\": 61155105,\n        \"brand\": \"in enim quis ea velit\",\n        \"model\": \"reprehenderit ut\",\n        \"vrp\": \"ullamco elit exercitation fugiat\",\n        \"owner\": {\n          \"id\": -51965423,\n          \"firstName\": \"amet pariatur\",\n          \"lastName\": \"in\",\n          \"email\": \"qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"ut aliqua irure exercitation\",\n        \"type\": {\n          \"id\": -17114011,\n          \"name\": \"eiusmod dolor\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 69807493\n          },\n          {\n            \"id\": -94511069\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": 12241394\n      },\n      \"coupon\": {\n        \"id\": -47046314,\n        \"name\": \"Lorem sunt anim id\",\n        \"discount\": 5770196.482332677\n      }\n    },\n    {\n      \"id\": -6166120,\n      \"start\": \"mollit \",\n      \"end\": \"Lorem ullamco culpa\",\n      \"prices\": 82820478.86607465,\n      \"car\": {\n        \"id\": 54967372,\n        \"brand\": \"incididunt\",\n        \"model\": \"laborum commodo adipisicing officia dolor\",\n        \"vrp\": \"dolore labore voluptate veniam\",\n        \"owner\": {\n          \"id\": -4589833,\n          \"firstName\": \"cupidatat f\",\n          \"lastName\": \"cillum reprehenderit ipsu\",\n          \"email\": \"deserunt qui\",\n          \"cars\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"colour\": \"elit Excepteur enim\",\n        \"type\": {\n          \"id\": -14304154,\n          \"name\": \"ipsum occaecat\"\n        },\n        \"reservations\": [\n          {\n            \"id\": 20772906\n          },\n          {\n            \"id\": -31152244\n          }\n        ]\n      },\n      \"spot\": {\n        \"id\": -4466710\n      },\n      \"coupon\": {\n        \"id\": -37616842,\n        \"name\": \"amet aute dolor\",\n        \"discount\": 92455882.09597638\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/floors/:identifier/spots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"floors",
+								":identifier",
+								"spots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-71383475",
+									"description": "(Required) Id of car park"
+								},
+								{
+									"key": "identifier",
+									"value": "Lorem consequat consectetur pariatur",
+									"description": "(Required) Identifier of the car park floor"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get parking spots for given car park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('getAllParkingSlotsForCarPark', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.be.an('array');\r",
+							"    pm.expect(jsonResponse.length).to.be.eql(2);\r",
+							"\r",
+							"    const parkingSpot1 = jsonResponse[0];\r",
+							"    const parkingSpot2 = jsonResponse[1];\r",
+							"\r",
+							"    if (parkingSpot1.id == pm.variables.get('parkingSpotId')) {\r",
+							"        pm.expect(parkingSpot1.identifier).to.eql(pm.variables.get('parkingSpotIdentifier'));\r",
+							"        pm.expect(parkingSpot2.id).to.eql(pm.variables.get('parkingSpotId2'));\r",
+							"        pm.expect(parkingSpot2.identifier).to.eql(pm.variables.get('parkingSpotIdentifier2'));\r",
+							"        pm.expect(parkingSpot1.carParkFloor).to.eql(pm.variables.get('carParkFloorIdentifier'));\r",
+							"        pm.expect(parkingSpot2.carParkFloor).to.eql(pm.variables.get('carParkFloorIdentifier2'));\r",
+							"        if (typeof parkingSpot1.type == 'number') {\r",
+							"            pm.expect(parkingSpot1.type).to.eql(pm.variables.get('carTypeId'));\r",
+							"             pm.expect(parkingSpot2.type).to.eql(pm.variables.get('carTypeId2'));\r",
+							"        } else {\r",
+							"            pm.expect(parkingSpot1.type.id).to.be.a('number');\r",
+							"            pm.expect(parkingSpot1.type.id).to.eql(pm.variables.get('carTypeId'));\r",
+							"            pm.expect(parkingSpot2.type.id).to.be.a('number');\r",
+							"            pm.expect(parkingSpot2.type.id).to.eql(pm.variables.get('carTypeId2'));\r",
+							"        }\r",
+							"    } else {\r",
+							"        pm.expect(parkingSpot1.id).to.eql(pm.variables.get('parkingSpotId2'));\r",
+							"        pm.expect(parkingSpot1.identifier).to.eql(pm.variables.get('parkingSpotIdentifier2'));\r",
+							"        pm.expect(parkingSpot2.id).to.eql(pm.variables.get('parkingSpotId'));\r",
+							"        pm.expect(parkingSpot2.identifier).to.eql(pm.variables.get('parkingSpotIdentifier'));\r",
+							"        pm.expect(parkingSpot1.carParkFloor).to.eql(pm.variables.get('carParkFloorIdentifier2'));\r",
+							"        pm.expect(parkingSpot2.carParkFloor).to.eql(pm.variables.get('carParkFloorIdentifier'));\r",
+							"        if (typeof parkingSpot1.type == 'number') {\r",
+							"            pm.expect(parkingSpot1.type).to.eql(pm.variables.get('carTypeId2'));\r",
+							"             pm.expect(parkingSpot2.type).to.eql(pm.variables.get('carTypeId'));\r",
+							"        } else {\r",
+							"            pm.expect(parkingSpot1.type.id).to.be.a('number');\r",
+							"            pm.expect(parkingSpot1.type.id).to.eql(pm.variables.get('carTypeId2'));\r",
+							"            pm.expect(parkingSpot2.type.id).to.be.a('number');\r",
+							"            pm.expect(parkingSpot2.type.id).to.eql(pm.variables.get('carTypeId'));\r",
+							"        }\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/carparks/{{carParkId}}/spots",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"carparks",
+						"{{carParkId}}",
+						"spots"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Car park exists - parking spots for that car park are returned",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/carparks/:id/spots?free=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carparks",
+								":id",
+								"spots"
+							],
+							"query": [
+								{
+									"key": "free",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10824217",
+									"description": "(Required) Id of car park"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"value\": \"reference #/components/schemas/ParkingSlot not found in the OpenAPI spec\"\n  },\n  {\n    \"value\": \"reference #/components/schemas/ParkingSlot not found in the OpenAPI spec\"\n  }\n]"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{auth_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{auth_name}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "carParkId",
+			"value": ""
+		}
+	]
+}

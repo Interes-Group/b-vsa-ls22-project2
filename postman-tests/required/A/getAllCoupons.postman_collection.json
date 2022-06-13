@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "43504b4f-2cbd-4bf1-bd77-4b9067e2e845",
+		"name": "getAllCoupons",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3466389"
+	},
+	"item": [
+		{
+			"name": "Create discount coupon Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createCoupon', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('couponName'));\r",
+							"    pm.expect(jsonResponse.discount).to.eql(pm.variables.get('couponDiscount'));\r",
+							"    pm.variables.set('couponId', jsonResponse.id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set('couponDiscount', 10);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 35666679,\n  \"name\": \"{{couponName}}\",\n  \"discount\": {{couponDiscount}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/coupons",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coupons"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Coupon created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/coupons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/coupons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Create discount coupon Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createCoupon', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('couponName2'));\r",
+							"    pm.expect(jsonResponse.discount).to.eql(pm.variables.get('couponDiscount2'));\r",
+							"    pm.variables.set('couponId2', jsonResponse.id);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set('couponDiscount2', 20);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 35665662,\n  \"name\": \"{{couponName2}}\",\n  \"discount\": {{couponDiscount2}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/coupons",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coupons"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Coupon created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/coupons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 35666679,\n  \"name\": \"adipisicing\",\n  \"discount\": -60696906.38460452\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/coupons",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coupons"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get discout coupons",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('getAllCoupons', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"        pm.response.to.be.withBody;\r",
+							"        const jsonResponse = pm.response.json();\r",
+							"        pm.expect(jsonResponse).to.be.an('array');\r",
+							"        pm.expect(jsonResponse.length).to.eql(2);\r",
+							"        const coupon1 = jsonResponse[0];\r",
+							"        const coupon2 = jsonResponse[1];\r",
+							"        \r",
+							"        if (coupon1.id == pm.variables.get('couponId')) {\r",
+							"            pm.expect(coupon1.name).to.eql(pm.variables.get('couponName'));\r",
+							"            pm.expect(coupon1.discount).to.eql(pm.variables.get('couponDiscount'));\r",
+							"\r",
+							"            pm.expect(coupon2.name).to.eql(pm.variables.get('couponName2'));\r",
+							"            pm.expect(coupon2.discount).to.eql(pm.variables.get('couponDiscount2'));\r",
+							"\r",
+							"            pm.expect(coupon2.id).to.eql(pm.variables.get('couponId2'));\r",
+							"        } else {\r",
+							"            pm.expect(coupon1.id).to.eql(pm.variables.get('couponId2'));\r",
+							"            pm.expect(coupon1.name).to.eql(pm.variables.get('couponName2'));\r",
+							"            pm.expect(coupon1.discount).to.eql(pm.variables.get('couponDiscount2'));\r",
+							"\r",
+							"            pm.expect(coupon2.name).to.eql(pm.variables.get('couponName'));\r",
+							"            pm.expect(coupon2.discount).to.eql(pm.variables.get('couponDiscount'));\r",
+							"\r",
+							"            pm.expect(coupon2.id).to.eql(pm.variables.get('couponId'));\r",
+							"        }\r",
+							"\r",
+							"        \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/coupons",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coupons"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get collection of coupons",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/coupons?user=32289615",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coupons"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "32289615"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -97575648,\n  \"name\": \"id ea\",\n  \"discount\": 87926764.51185569\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{auth_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{auth_name}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080/api",
+			"type": "string"
+		}
+	]
+}

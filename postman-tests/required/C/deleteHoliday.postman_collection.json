@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "e63fbfbf-6b83-475f-ba29-37c8a28c5171",
+		"name": "deleteHoliday",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3466389"
+	},
+	"item": [
+		{
+			"name": "Create holiday Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('createHoliday', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonResponse.id).to.be.a('number');\r",
+							"    pm.expect(jsonResponse.name).to.eql(pm.variables.get('holidayName'));\r",
+							"\r",
+							"    const date = new Date(jsonResponse.date);\r",
+							"    const date2 = new Date(pm.variables.get('holidayDate'));\r",
+							"\r",
+							"    pm.expect(date.getDate()).to.eql(date2.getDate());\r",
+							"    pm.expect(date.getMonth()).to.eql(date2.getMonth());\r",
+							"\r",
+							"    pm.variables.set('holidayId', jsonResponse.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 6033393,\n  \"name\": \"{{holidayName}}\",\n  \"date\": \"{{holidayDate}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/holidays",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"holidays"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Holiday created and returned",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 6033393,\n  \"name\": \"nostrud sit enim\",\n  \"date\": \"1997-10-29\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/holidays",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 6033393,\n  \"name\": \"nostrud sit enim\",\n  \"date\": \"1997-10-29\"\n}"
+				},
+				{
+					"name": "Incorrectly formed request body",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 6033393,\n  \"name\": \"nostrud sit enim\",\n  \"date\": \"1997-10-29\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/holidays",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get holidays Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('getHolidays', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.be.an('array');\r",
+							"    pm.expect(jsonResponse.length).to.eql(1);\r",
+							"\r",
+							"    const holiday1 = jsonResponse[0];\r",
+							"\r",
+							"\r",
+							"    pm.expect(holiday1.name).to.eql(pm.variables.get('holidayName'));\r",
+							"    pm.expect(holiday1.id).to.eql(pm.variables.get('holidayId'));\r",
+							"    const date = new Date(holiday1.date);\r",
+							"    const date2 = new Date(pm.variables.get('holidayDate'));\r",
+							"\r",
+							"    pm.expect(date.getDate()).to.eql(date2.getDate());\r",
+							"    pm.expect(date.getMonth()).to.eql(date2.getMonth());    \r",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/holidays",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"holidays"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Return holidays",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/holidays?date=1961-02-07",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "1961-02-07"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": 59059350,\n  \"name\": \"elit\",\n  \"date\": \"2021-03-06\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete holiday",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/holidays/{{holidayId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"holidays",
+						"{{holidayId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Holiday deleted",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/holidays/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-23389504",
+									"description": "(Required) Id of the holiday"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Holiday not found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/holidays/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "-23389504",
+									"description": "(Required) Id of the holiday"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get holidays",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('noHolidays', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"\r",
+							"    const jsonResponse = pm.response.json();\r",
+							"    pm.expect(jsonResponse).to.be.an('array');\r",
+							"    pm.expect(jsonResponse.length).to.eql(0);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/holidays",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"holidays"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Return holidays",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: basic",
+								"key": "Authorization",
+								"value": "Basic <credentials>"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/holidays?date=2001-01-08",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"holidays"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2001-01-08"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"id\": -33363205,\n  \"name\": \"ipsum ut aliqua sunt\",\n  \"date\": \"1947-07-12\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{auth_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{auth_name}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080/api",
+			"type": "string"
+		}
+	]
+}
