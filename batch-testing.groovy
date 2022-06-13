@@ -282,7 +282,6 @@ def editPom = { File project ->
                 'aisId': dev.id?.text()?.trim()?.replace('\n', '')?.replace('\t', ''),
                 'name': dev.name?.text()?.trim()?.replace('\n', '')?.replace('\t', ''),
                 'email': dev.email?.text()?.trim()?.replace('\n', '')?.replace('\t', ''),
-                'repo': parts[parts.length - 1]
         )
     }
     return null
@@ -355,18 +354,47 @@ def clearTables = {
             }
         }
     })
-    def email = "EMAIL"
-    sql.query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'USER'", {
+    def columns = []
+    def values = []
+    sql.query("SELECT COLUMN_NAME, ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'USER'", {
         while (it.next()) {
+            if (it.getInt('ORDINAL_POSITION') == 1) {
+                columns.clear()
+                values.clear()
+            }
+            String index = it.getString('COLUMN_KEY')
             String columnName = it.getString("COLUMN_NAME")
-            if (columnName.contains('email') || columnName.contains('EMAIL')) {
-                email = columnName
+            String nullable = it.getString('IS_NULLABLE')
+            if (Objects.equals(index, 'PRI')) { // ide o primary key
+                columns << columnName
+                values << '1'
+            } else if (columnName.contains('email') || columnName.contains('EMAIL')) {
+                columns << columnName
+                values << "'admin@vsa.sk'"
+            } else if (Objects.equals(nullable, 'NO')) {
+                String type = it.getString('DATA_TYPE')
+                columns << columnName
+                if (type.contains('char') || type.contains('text'))
+                    values << "'test'"
+                else if (type.contains('int'))
+                    values << '7'
+                else if (type.contains('float') || type.contains('double'))
+                    values << '7.0'
+                else
+                    values << "''"
             }
         }
     })
+    def insertQuery = "INSERT INTO USER ("
+    insertQuery += String.join(',', columns)
+    insertQuery += ') VALUES ('
+    insertQuery += String.join(',', values)
+    insertQuery += ')'
+
+
     sql.execute 'SET FOREIGN_KEY_CHECKS = 0'
     tables.each { sql.execute('TRUNCATE TABLE ' + it) }
-    sql.executeInsert("INSERT INTO USER (ID, " + email + ") VALUES (1, 'admin@vsa.sk')")
+    sql.executeInsert(insertQuery)
     sql.execute 'SET FOREIGN_KEY_CHECKS = 1'
     sql.close()
 }
@@ -522,6 +550,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
         File tmpJson = new File(TEST_DIR + File.separator + '..' + File.separator + 'tmp-report.json')
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
+        clearTables()
         def testDir = new File(TEST_DIR + File.separator + 'common').listFiles()
         testDir.each { file ->
             if (!file.name.endsWith('json')) return
@@ -542,6 +571,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
             clearTables()
         }
         println "Running tests for group $group"
+        clearTables()
         def groupTestDir = new File(TEST_DIR + File.separator + group).listFiles()
         def groupTestDirSize = groupTestDir.length
         groupTestDir.eachWithIndex { file, index ->
@@ -573,6 +603,7 @@ def testStudent = { File project, String group, boolean controlConnection ->
         println "Bonus Tests Run"
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
+        clearTables()
         def bonusTestDir = new File(TEST_BONUS_DIR).listFiles()
         def bonusTestDirSize = bonusTestDir.length
         bonusTestDir.eachWithIndex { file, index ->
@@ -646,7 +677,7 @@ if (confirmation == JOptionPane.YES_OPTION) {
         if (!groupFolder.isDirectory()) return
         File[] projectFiles = groupFolder.listFiles()
         for (File project : projectFiles) {
-            Evaluation e = testStudent(project, groupFolder.name.toUpperCase(), true)
+            Evaluation e = testStudent(project, groupFolder.name.toUpperCase(), false)
             results << e
         }
     }
