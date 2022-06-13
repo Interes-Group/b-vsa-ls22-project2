@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 import sk.stuba.fei.uim.vsa.pr1.domain.Reservation;
+import sk.stuba.fei.uim.vsa.pr1.domain.User;
+import sk.stuba.fei.uim.vsa.pr2.Helpers;
 import sk.stuba.fei.uim.vsa.pr2.dto.ReservationDTO;
 
 /**
@@ -110,6 +112,11 @@ public class ReservationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response endReservation(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathParam("id") Long id, @QueryParam("coupon") Long couponId) throws JsonProcessingException
     {
+        User u = Helpers.getAuthorizedUser(carParkService, authorizationHeader);
+        if (u == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        this.carParkService.evictCache();
         Reservation reservation = this.carParkService.getReservation(id);
         if (reservation == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -124,7 +131,10 @@ public class ReservationResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
         }
-
+        if (! reservation.getCar().getUser().getId().equals(u.getId())) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        this.carParkService.evictCache();
         Object endedReservationObject =null;
         if (couponId != null) {
             endedReservationObject = this.carParkService.endReservation(id, couponId);

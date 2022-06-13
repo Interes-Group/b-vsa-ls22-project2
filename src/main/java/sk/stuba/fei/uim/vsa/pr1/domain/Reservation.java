@@ -117,7 +117,7 @@ public class Reservation implements Serializable {
         Long diff = ChronoUnit.SECONDS.between(this.startsAt, this.endsAt);
         Double hourDiff = diff.doubleValue() / 3600.0;
         Long hours = hourDiff.longValue();
-        Double overHour = hourDiff - hours;
+        Double overHour = diff.doubleValue() % 3600.0;
         if (overHour > 0) hours++;
 
         this.price = hours.doubleValue() * pricePerHour;
@@ -130,8 +130,8 @@ public class Reservation implements Serializable {
         this.endsAt = now;
         Long diff = ChronoUnit.SECONDS.between(this.startsAt, this.endsAt);
         Double hourDiff = diff.doubleValue() / 3600.0;
+        Double overHour = diff.doubleValue() % 3600.0;
         Long hours = hourDiff.longValue();
-        Double overHour = hourDiff - hours;
         if (overHour > 0) hours++;
 
         this.price = hours.doubleValue() * pricePerHour;
