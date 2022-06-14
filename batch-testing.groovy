@@ -12,6 +12,8 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 /**
+ * To run this script you need to install Groovy 2.4+ on your device.
+ *
  * Test steps:
  * cd to student's project folder
  * make project compatible with testing environment
