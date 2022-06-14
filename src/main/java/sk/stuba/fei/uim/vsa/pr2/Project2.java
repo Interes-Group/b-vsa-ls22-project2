@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import sk.stuba.fei.uim.vsa.pr1.CarParkService;
 
 import java.net.URI;
 import java.util.logging.Level;
@@ -50,6 +51,7 @@ public class Project2 {
 
     public static void postStart() {
         // TODO sem napíš akékoľvek nastavenia, či volania, ktoré sa majú udiať ihneď po štarte
+        new CarParkService().createUser("admin", "admin", "admin@vsa.sk");
     }
 
 }

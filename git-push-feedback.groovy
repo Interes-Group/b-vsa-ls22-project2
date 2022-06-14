@@ -18,6 +18,7 @@ def pushFolder = { File project ->
     if (!feedback || !feedback.exists()) return
     String repo = REPO_URL + project.name
     println "Pushing change for ${project.name}"
+    runCommand(project, ['git', 'pull', 'origin'])
     runCommand(project, ['git', 'remote', 'set-url', 'origin', repo])
     runCommand(project, ['git', 'config', 'user.email', TEACHER_EMAIL])
     runCommand(project, ['git', 'add', FEEDBACK_DIR])
