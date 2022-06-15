@@ -42,7 +42,10 @@ import java.time.LocalDateTime
  */
 
 // CONSTANTS
-Boolean ALL = false
+String NEWMAN = "C:\\Users\\mlado\\AppData\\Roaming\\npm\\newman.cmd"
+String MAVEN = "C:\\Program Files (x86)\\apache-maven-3.8.5\\bin\\mvn.cmd"
+
+
 String CWD = new File("..").absolutePath
 String TEST_PROJECT = new File(CWD + File.separator + "b-vsa-ls22-project2").absolutePath
 String STUDENT_GROUP = "a"
@@ -65,6 +68,7 @@ String POSTMAN_ENV_FILE = new File(TEST_PROJECT + File.separator + 'postman-test
 String TEST_DIR = TEST_PROJECT + File.separator + 'postman-tests' + File.separator + 'required'
 String TEST_BONUS_DIR = TEST_PROJECT + File.separator + 'postman-tests' + File.separator + 'bonus'
 String TEST_WS_URL = "http://localhost:8080/users"
+String MAIN_CLASS_FILE = String.join(File.separator, ['src', 'main', 'java', 'sk', 'stuba', 'fei', 'uim', 'vsa', 'pr2', 'Project2.java'])
 
 def input = JOptionPane.&showInputDialog
 def confirm = JOptionPane.&showConfirmDialog
@@ -229,7 +233,7 @@ def copyDir = { File from, File to ->
                 StandardCopyOption.COPY_ATTRIBUTES,
                 StandardCopyOption.REPLACE_EXISTING
         )
-        target.text = target.text.replace('sk.stuba.fei.uim.vsa.pr1', 'sk.stuba.fei.uim.vsa.pr1' + STUDENT_GROUP)
+        target.text = target.text.replace('sk.stuba.fei.uim.vsa.pr2', 'sk.stuba.fei.uim.vsa.pr2' + STUDENT_GROUP)
     }
 }
 
@@ -417,8 +421,36 @@ def clearTables = {
     sql.close()
 }
 
+def gitPull = { File project ->
+    def args = ['cmd', '/c', 'git', 'pull', 'origin']
+    def b = new ProcessBuilder(args)
+    b.directory(project)
+    b.inheritIO()
+    def p = b.start()
+    p.waitFor()
+}
+
+def insertAfter = { File file, String toFound, String toInsert ->
+    if (file.text.contains(toInsert)) {
+        println "File ${file.name} already containes string '$toInsert'"
+        return
+    }
+    def index = file.text.indexOf(toFound)
+    if (index == -1)
+        throw new RuntimeException("File ${file.name} does not contain the string '$toFound' to found")
+    file.text = file.text.substring(0, (index + (toFound.length()))) + '\n        ' + toInsert + file.text.substring((index + (toFound.length())))
+}
+
+def addJavaFix = { File project ->
+    File mainClass = new File(project.absolutePath + File.separator + MAIN_CLASS_FILE)
+    if (!mainClass.exists())
+        throw new RuntimeException('Main class sk.stuba.fei.uim.vsa.pr2.Project2 does not exist!')
+    insertAfter(mainClass, 'import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;', 'import org.glassfish.jersey.jackson.JacksonFeature;')
+    insertAfter(mainClass, 'final ResourceConfig config = ResourceConfig.forApplicationClass(APPLICATION_CLASS);', 'config.register(JacksonFeature.class);')
+}
+
 def buildProject = { File project, File output, File errors ->
-    def args = ['cmd', '/c', 'mvn', '-DskipTests=true', 'clean', 'compile', 'package']
+    def args = [MAVEN, '-DskipTests=true', 'clean', 'compile', 'package']
     def builder = new ProcessBuilder(args)
     builder.directory(project)
     builder.redirectOutput(output)
@@ -441,7 +473,7 @@ def runProject = { File project, File output, File error ->
     builder.redirectOutput(output)
     builder.redirectError(error)
     def process = builder.start()
-    Thread.sleep(3000)
+    Thread.sleep(4000)
     if (!process.isAlive())
         throw new RuntimeException('Web server process is not running!')
     return process
@@ -472,9 +504,10 @@ def testWebServerReadiness = {
 
 def runPostmanTest = { File collection, File output, File errors, String jsonResults ->
     println "Running postman collection ${collection.name}"
-    def args = ['cmd', '/c', 'newman', 'run', collection.absolutePath, '-k', '-e', POSTMAN_ENV_FILE,
+    def args = [NEWMAN, 'run', collection.absolutePath, '-k', '-e', POSTMAN_ENV_FILE,
                 '-r', 'cli,json', '--reporter-json-export', jsonResults, '--reporter-cli-no-banner',
-                '--reporter-cli-show-timestamps']
+                '--reporter-cli-show-timestamps', '--timeout-request', '60000', '--timeout', '600000',
+                '--verbose']
     def builder = new ProcessBuilder(args)
     builder.redirectOutput(output)
     builder.redirectError(errors)
@@ -535,6 +568,9 @@ def testStudent = { File project, String group, boolean controlConnection ->
     serverError.text = ''
 
     try {
+        println "Pulling newest version"
+        gitPull(project)
+
         println "Editing pom.xml"
         Student studentId = editPom(project)
         if (!studentId) {
@@ -547,6 +583,9 @@ def testStudent = { File project, String group, boolean controlConnection ->
 
         println "Editing persistence.xml"
         editPersistence(project)
+
+        println "Add Java fix"
+        addJavaFix(project)
 
         println "Clearing database before tests"
         clearDatabase()
