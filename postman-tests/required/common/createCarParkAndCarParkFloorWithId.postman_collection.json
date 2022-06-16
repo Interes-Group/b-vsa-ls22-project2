@@ -329,12 +329,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/carparkFloors/{{carParkFloorId}}",
+					"raw": "{{baseUrl}}/carparkfloors/{{carParkFloorId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"carparkFloors",
+						"carparkfloors",
 						"{{carParkFloorId}}"
 					]
 				}

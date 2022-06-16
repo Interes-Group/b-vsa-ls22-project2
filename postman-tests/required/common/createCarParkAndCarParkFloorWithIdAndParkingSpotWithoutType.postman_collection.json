@@ -190,7 +190,7 @@
 							"\r",
 							"    pm.expect(floor.identifier).to.eql(pm.variables.get('carParkFloorIdentifier'));\r",
 							"    pm.expect(floor.carPark).to.eql(pm.variables.get('carParkId'));\r",
-							"    pm.expect(floor.id).to.eql(pm.variables.get('carParkId'));\r",
+							"    pm.expect(floor.id).to.eql(pm.variables.get('carParkFloorId'));\r",
 							"    pm.expect(floor.spots).to.be.an('array');\r",
 							"    pm.expect(floor.spots.length).to.eql(1);\r",
 							"\r",
@@ -349,12 +349,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/carparkFloors/{{carParkFloorId}}",
+					"raw": "{{baseUrl}}/carparkfloors/{{carParkFloorId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"carparkFloors",
+						"carparkfloors",
 						"{{carParkFloorId}}"
 					]
 				}

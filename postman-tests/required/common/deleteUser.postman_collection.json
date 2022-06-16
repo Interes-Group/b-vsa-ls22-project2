@@ -153,7 +153,7 @@
 					"script": {
 						"exec": [
 							"pm.test('deleteUser', function () {\r",
-							"    pm.response.response.to.have.status(204);\r",
+							"    pm.response.to.have.status(204);\r",
 							"});"
 						],
 						"type": "text/javascript"
