@@ -45,3 +45,4 @@ if (ALL) {
 } else {
     pushFolder(new File(cwd.absolutePath).parentFile, alsoPush)
 }
+System.exit(0)

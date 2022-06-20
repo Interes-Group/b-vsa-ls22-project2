@@ -625,6 +625,10 @@ def testStudent = { File project, String group, boolean controlConnection ->
                 newmanJsonFile << ','
             }
             clearTables()
+//            stopServer(webServer)
+//            clearDatabase()
+//            webServer = runProject(project, serverOutput, serverError)
+//            Thread.sleep(1000)
         }
         println "Running tests for group $group"
         clearTables()
@@ -649,6 +653,10 @@ def testStudent = { File project, String group, boolean controlConnection ->
                 }
             }
             clearTables()
+//            stopServer(webServer)
+//            clearDatabase()
+//            webServer = runProject(project, serverOutput, serverError)
+//            Thread.sleep(1000)
         }
         newmanJsonFile << ']'
 
@@ -681,6 +689,10 @@ def testStudent = { File project, String group, boolean controlConnection ->
                 }
             }
             clearTables()
+//            stopServer(webServer)
+//            clearDatabase()
+//            webServer = runProject(project, serverOutput, serverError)
+//            Thread.sleep(1000)
         }
         bonusNewmanJsonFile << ']'
         println "Evaluating bonus tests"
