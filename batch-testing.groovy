@@ -632,6 +632,10 @@ def testStudent = { File project, String group, boolean controlConnection ->
         }
         println "Running tests for group $group"
         clearTables()
+//        stopServer(webServer)
+//        clearDatabase()
+//        webServer = runProject(project, serverOutput, serverError)
+//        Thread.sleep(1000)
         def groupTestDir = new File(TEST_DIR + File.separator + group).listFiles()
         def groupTestDirSize = groupTestDir.length
         groupTestDir.eachWithIndex { file, index ->
@@ -668,6 +672,10 @@ def testStudent = { File project, String group, boolean controlConnection ->
         if (!webServer.isAlive())
             throw new RuntimeException('Web server is not alive to test')
         clearTables()
+//        stopServer(webServer)
+//        clearDatabase()
+//        webServer = runProject(project, serverOutput, serverError)
+//        Thread.sleep(1000)
         def bonusTestDir = new File(TEST_BONUS_DIR).listFiles()
         def bonusTestDirSize = bonusTestDir.length
         bonusTestDir.eachWithIndex { file, index ->
